@@ -4,6 +4,7 @@ import com.example.outsourcing.entity.Member;
 import com.example.outsourcing.entity.Menu;
 import com.example.outsourcing.entity.Orders;
 import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.eunm.OrdersStatus;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,17 @@ public class OrdersService {
         // 로그인한 유저가 고객이거나 Owner 일때만 조회가능, 로그인한 유저가 가게 오너이거나 주문한 고객인지 확인하는 코드 필요
 
         Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
+        return OrdersResponseDto.toDto(findOrders);
+    }
+
+    @Transactional
+    public OrdersResponseDto updateOrdersStatus(Long storeId, Long ordersId, OrdersStatus status) {
+        // 로그인한 유저가 Owner 일때만 변경 가능, 로그인한 유저가 가게오너인지 확인하는 코드 필요
+
+        Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
+        findOrders.setStatus(status);
+        ordersRepository.save(findOrders);
+
         return OrdersResponseDto.toDto(findOrders);
     }
 }
