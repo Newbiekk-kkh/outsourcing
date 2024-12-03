@@ -9,7 +9,7 @@ import java.sql.Time;
 @Getter
 @Entity
 @Table(name = "store")
-public class Store {
+public class Store extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
