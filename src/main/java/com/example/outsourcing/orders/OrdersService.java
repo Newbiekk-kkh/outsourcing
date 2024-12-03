@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.example.outsourcing.eunm.OrderStatus.ORDERED;
 
 @Service
@@ -31,5 +33,12 @@ public class OrdersService {
         ordersRepository.save(orders);
 
         return OrdersResponseDto.toDto(orders);
+    }
+
+    public List<OrdersResponseDto> findAllOrders(Long storeId) {
+        // 로그인한 유저가 가게의 Owner 일때만 조회 가능, 로그인한 유저로 가게 오너인지 확인하는 코드 필요
+
+        List<Orders> allOrders = ordersRepository.findAllByStoreId(storeId);
+        return allOrders.stream().map(OrdersResponseDto::toDto).toList();
     }
 }

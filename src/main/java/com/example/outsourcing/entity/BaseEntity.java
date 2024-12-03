@@ -19,5 +19,9 @@ public abstract class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    // 수정일
+    @LastModifiedDate
+    private LocalDateTime modifiedAt;
 }
 
