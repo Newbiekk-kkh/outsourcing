@@ -1,17 +1,16 @@
 package com.example.outsourcing.orders.dto;
 
 import com.example.outsourcing.entity.Orders;
-import com.example.outsourcing.eunm.OrderStatus;
+import com.example.outsourcing.eunm.OrdersStatus;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 public class OrdersResponseDto {
     private Long orderId;
     private Long menuId;
-    private OrderStatus status;
+    private OrdersStatus status;
 
-    public OrdersResponseDto(Long orderId, Long menuId, OrderStatus status) {
+    public OrdersResponseDto(Long orderId, Long menuId, OrdersStatus status) {
         this.orderId = orderId;
         this.menuId = menuId;
         this.status = status;

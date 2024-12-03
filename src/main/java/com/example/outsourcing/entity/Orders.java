@@ -1,6 +1,6 @@
 package com.example.outsourcing.entity;
 
-import com.example.outsourcing.eunm.OrderStatus;
+import com.example.outsourcing.eunm.OrdersStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +13,10 @@ public class Orders extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderStatus status;
+    private OrdersStatus status;
 
     @Setter
     @ManyToOne
@@ -35,7 +36,7 @@ public class Orders extends BaseEntity {
     public Orders() {
     }
 
-    public Orders(OrderStatus status) {
+    public Orders(OrdersStatus status) {
         this.status = status;
     }
 }

@@ -23,7 +23,13 @@ public class OrdersController {
 
     @GetMapping
     public ResponseEntity<List<OrdersResponseDto>> findAllOrders(@PathVariable Long storeId) {
-        List<OrdersResponseDto> allOrders = ordersService.findAllOrders(storeId);
-        return new ResponseEntity<>(allOrders, HttpStatus.OK);
+        List<OrdersResponseDto> allOrdersResponseDtoList = ordersService.findAllOrders(storeId);
+        return new ResponseEntity<>(allOrdersResponseDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{ordersId}")
+    public ResponseEntity<OrdersResponseDto> findOrders(@PathVariable Long storeId, @PathVariable Long ordersId) {
+        OrdersResponseDto findOrdersResponseDto = ordersService.findOrders(storeId, ordersId);
+        return new ResponseEntity<>(findOrdersResponseDto, HttpStatus.OK);
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.outsourcing.eunm.OrderStatus.ORDERED;
+import static com.example.outsourcing.eunm.OrdersStatus.ORDERED;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +40,12 @@ public class OrdersService {
 
         List<Orders> allOrders = ordersRepository.findAllByStoreId(storeId);
         return allOrders.stream().map(OrdersResponseDto::toDto).toList();
+    }
+
+    public OrdersResponseDto findOrders(Long storeId, Long ordersId) {
+        // 로그인한 유저가 고객이거나 Owner 일때만 조회가능, 로그인한 유저가 가게 오너이거나 주문한 고객인지 확인하는 코드 필요
+
+        Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
+        return OrdersResponseDto.toDto(findOrders);
     }
 }

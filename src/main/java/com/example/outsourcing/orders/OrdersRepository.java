@@ -15,6 +15,10 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findAllByStoreId(Long storeId);
 
     default Orders findByStoreIdOrElseThrow(Long storeId) {
-        return findByStoreId(storeId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "가게를 찾을 수 없습니다."));
+        return findByStoreId(storeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "가게를 찾을 수 없습니다."));
+    }
+
+    default Orders findByIdOrElseThrow(Long ordersId) {
+        return findById(ordersId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "주문을 찾을 수 없습니다."));
     }
 }

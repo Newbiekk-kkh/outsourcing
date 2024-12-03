@@ -1,6 +1,6 @@
 package com.example.outsourcing.eunm;
 
-public enum OrderStatus {
+public enum OrdersStatus {
     ORDERED,
     ORDER_ACCEPTED,
     COOKING,
