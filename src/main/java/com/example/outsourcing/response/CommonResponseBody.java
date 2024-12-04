@@ -7,11 +7,11 @@ import java.util.PrimitiveIterator;
 @Getter
 public class CommonResponseBody<T> {
     private final String message;
-    private final T date;
+    private final T data;
 
-    public CommonResponseBody(String message, T date) {
+    public CommonResponseBody(String message, T data) {
         this.message = message;
-        this.date = date;
+        this.data = data;
     }
 
     public CommonResponseBody(String message) {

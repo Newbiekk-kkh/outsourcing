@@ -2,9 +2,11 @@ package com.example.outsourcing.entity;
 
 import com.example.outsourcing.eunm.StoreStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.sql.Time;
+import java.util.List;
 
 @Getter
 @Entity
@@ -13,6 +15,9 @@ public class Store extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
     private long price;
@@ -36,8 +41,16 @@ public class Store extends BaseEntity {
     public Store() {
     }
 
-    public Store(long price, StoreStatus status) {
+    @Builder
+    public Store(String name, long price, Time openTime, Time closeTime) {
+        this.name = name;
         this.price = price;
-        this.status = status;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.status = StoreStatus.NORMAL;
+    }
+
+    public void delete(){
+        this.status = StoreStatus.DELETED;
     }
 }
