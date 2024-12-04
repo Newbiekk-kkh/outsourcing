@@ -14,21 +14,21 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AdminRoleInterceptor implements HandlerInterceptor {
     
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws UnauthorizedException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "세션이 끊어졌습니다.");
-        }
-
-        Authentication authentication = (Authentication) session.getAttribute(SessionNames.USER_AUTH);
-        Member member = authentication.getMember();
-
-        if (member.getAccess() != MemberAccess.OWNER) {
-            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "권한이 필요합니다.");
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+//            throws UnauthorizedException {
+//        HttpSession session = request.getSession(false);
+//        if (session == null) {
+//            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "세션이 끊어졌습니다.");
+//        }
+//
+//        Authentication authentication = (Authentication) session.getAttribute(SessionNames.USER_AUTH);
+//        Member member = authentication.getMember();
+//
+//        if (member.getAccess() != MemberAccess.OWNER) {
+//            throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "권한이 필요합니다.");
+//        }
+//
+//        return true;
+//    }
 }

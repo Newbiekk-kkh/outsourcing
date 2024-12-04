@@ -1,25 +1,25 @@
-package com.example.outsourcing.dto;
+package com.example.outsourcing.Store.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Getter
-public class StoreCreateRequestDto {
+public class StoreRequestDto {
 
     @NotBlank
     String name;
     @NotBlank
-    Time openTIme;
+    LocalTime openTIme;
     @NotBlank
-    Time closeTime;
+    LocalTime closeTime;
     @NotBlank
     Long defaultPrice;
 
     @Builder
-    public StoreCreateRequestDto(String name, Time openTIme, Time closeTime, Long defaultPrice) {
+    public StoreRequestDto(String name, LocalTime openTIme, LocalTime closeTime, Long defaultPrice) {
         this.name = name;
         this.openTIme = openTIme;
         this.closeTime = closeTime;
