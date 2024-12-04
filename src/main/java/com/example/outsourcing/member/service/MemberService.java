@@ -1,21 +1,19 @@
-package com.example.outsourcing.service;
+package com.example.outsourcing.member.service;
 
 import com.example.outsourcing.common.SuccessResponse;
 import com.example.outsourcing.common.UserAccess;
 import com.example.outsourcing.common.UserStatus;
 import com.example.outsourcing.config.PasswordEncoder;
-import com.example.outsourcing.dto.DeleteRequestDto;
-import com.example.outsourcing.dto.LoginRequestDto;
-import com.example.outsourcing.dto.MemberRequestDto;
-import com.example.outsourcing.dto.MemberResponseDto;
-import com.example.outsourcing.entity.Member;
-import com.example.outsourcing.repository.MemberRepository;
+import com.example.outsourcing.member.dto.DeleteRequestDto;
+import com.example.outsourcing.member.dto.MemberRequestDto;
+import com.example.outsourcing.member.dto.MemberResponseDto;
+import com.example.outsourcing.member.entity.Member;
+import com.example.outsourcing.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +50,7 @@ public class MemberService {
         // 비밀번호 암호화 및 회원 생성
         requestDto = encryptedPassword(requestDto);
         log.debug("암호화된 비밀번호: {}", requestDto.getPassword());
-        Member member = new Member();
+        Member member = null;
 
 
         if (requestDto.getAccess().equals("유저")) {
@@ -67,7 +65,7 @@ public class MemberService {
         Member savedMember = memberRepository.save(member);
         log.debug("저장된 Member 비밀번호: {}", savedMember.getPassword());
 
-        return SuccessResponse.of("회원 가입이 완료되었습니다.", MemberResponseDto.toDto(member));
+        return SuccessResponse.of("회원 가입이 완료되었습니다.", MemberResponseDto.toDto(savedMember));
     }
 
     //로그인
@@ -86,7 +84,7 @@ public class MemberService {
         Member member = memberRepository.findById(dto.getId()).orElseThrow();
 
         if (passwordEncoder.matches(dto.getPassword(), member.getPassword())) {
-            member.updatestatus(UserStatus.SECESSION);
+            member.delete(UserStatus.SECESSION);
             memberRepository.save(member);
         } else {
             return SuccessResponse.of("비밀번호가 틀립니다.", "");

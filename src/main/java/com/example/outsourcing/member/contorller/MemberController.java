@@ -1,12 +1,11 @@
-package com.example.outsourcing.contorller;
+package com.example.outsourcing.member.contorller;
 
 
 import com.example.outsourcing.common.SuccessResponse;
-import com.example.outsourcing.dto.DeleteRequestDto;
-import com.example.outsourcing.dto.LoginRequestDto;
-import com.example.outsourcing.dto.MemberRequestDto;
-import com.example.outsourcing.dto.MemberResponseDto;
-import com.example.outsourcing.service.MemberService;
+import com.example.outsourcing.member.dto.DeleteRequestDto;
+import com.example.outsourcing.member.dto.MemberRequestDto;
+import com.example.outsourcing.member.dto.MemberResponseDto;
+import com.example.outsourcing.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

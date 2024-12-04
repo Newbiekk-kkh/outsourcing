@@ -1,4 +1,4 @@
-package com.example.outsourcing.entity;
+package com.example.outsourcing.member.entity;
 
 import com.example.outsourcing.common.BaseEntity;
 import com.example.outsourcing.common.UserStatus;
@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class Member extends BaseEntity {
         this.userStatus = userStatus;
     }
 
-    public void updatestatus(UserStatus status) {
+    public void delete(UserStatus status) {
         this.userStatus = status.getUserStatus();
     }
 

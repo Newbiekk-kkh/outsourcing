@@ -1,6 +1,6 @@
-package com.example.outsourcing.dto;
+package com.example.outsourcing.member.dto;
 
-import com.example.outsourcing.entity.Member;
+import com.example.outsourcing.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

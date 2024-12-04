@@ -1,6 +1,6 @@
-package com.example.outsourcing.repository;
+package com.example.outsourcing.member.repository;
 
-import com.example.outsourcing.entity.Member;
+import com.example.outsourcing.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
