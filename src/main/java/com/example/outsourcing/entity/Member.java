@@ -2,14 +2,14 @@ package com.example.outsourcing.entity;
 
 import com.example.outsourcing.common.BaseEntity;
 import com.example.outsourcing.common.UserStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -29,6 +29,11 @@ public class Member extends BaseEntity {
     private String userAccess;
 
     private String userStatus;
+
+
+    @OneToMany(mappedBy = "member")
+    List<Store> stores = new ArrayList<>();
+
 
     public Member(String email, String password, String userAccess, String userStatus) {
         this.email = email;

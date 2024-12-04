@@ -1,10 +1,14 @@
 package com.example.outsourcing.entity;
 
+import com.example.outsourcing.Store.dto.StoreRequestDto;
 import com.example.outsourcing.eunm.StoreStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
+import java.lang.ref.SoftReference;
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Getter
 @Entity
@@ -15,6 +19,9 @@ public class Store {
     private long id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private long price;
 
     @Enumerated(EnumType.STRING)
@@ -22,12 +29,10 @@ public class Store {
     private StoreStatus status;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Time openTime;
+    private LocalTime openTime;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Time closeTime;
+    private LocalTime closeTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
@@ -36,8 +41,31 @@ public class Store {
     public Store() {
     }
 
+    @Builder
+    public Store(String name, LocalTime openTime, LocalTime closeTime, Long price, Member member) {
+        this.name = name;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.price = price;
+        this.status = StoreStatus.NORMAL;
+    }
+
+
+
+
     public Store(long price, StoreStatus status) {
         this.price = price;
         this.status = status;
+    }
+
+    public void update(StoreRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.openTime = requestDto.getOpenTIme();
+        this.closeTime = requestDto.getCloseTime();
+        this.price = requestDto.getDefaultPrice();
+    }
+
+    public void delete() {
+        this.status = StoreStatus.DELETED;
     }
 }

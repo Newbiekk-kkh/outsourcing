@@ -12,4 +12,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByEmail(@Param("email") String email);
 
     Optional<Member> findByEmail(@Param("email") String email);
+
+    default Member findByIdOrElseThrow(Long id) {
+        return findById(id).orElseThrow(()->new IllegalArgumentException("찾을 수 없는 멤버입니다"));
+    }
 }
