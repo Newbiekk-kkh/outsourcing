@@ -35,7 +35,7 @@ public class StoreController {
     }
 
 
-    @GetMapping("{storeId}")
+    @GetMapping("/{storeId}")
     public ResponseEntity<CommonResponseBody<StoreDetailResponseDto>> findStoreDetail (@PathVariable Long storeId) {
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -43,7 +43,7 @@ public class StoreController {
     }
 
 
-    @PatchMapping("{storeId}")
+    @PatchMapping("/{storeId}")
     public ResponseEntity<CommonResponseBody<String>> updateStore (@PathVariable Long storeId,
                                                                    @RequestBody StoreRequestDto requestDto) {
 
@@ -52,7 +52,7 @@ public class StoreController {
                 .body(new CommonResponseBody<>("가게 정보가 수정되었습니다"));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{storeId}")
     public ResponseEntity<CommonResponseBody<String>> deleteStore (@PathVariable Long storeId,
                                                                    @RequestBody StoreDeleteDto storeDeleteDto,
                                                                    @SessionAttribute("id") Long memberId) {

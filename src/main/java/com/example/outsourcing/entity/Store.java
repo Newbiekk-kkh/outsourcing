@@ -29,10 +29,10 @@ public class Store extends BaseEntity {
     @Column(nullable = false)
     private StoreStatus status;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalTime openTime;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalTime closeTime;
 
     @ManyToOne
