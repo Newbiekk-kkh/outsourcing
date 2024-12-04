@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -32,6 +34,9 @@ public class Store {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Menu> menu = new ArrayList<>();
 
     public Store() {
     }
