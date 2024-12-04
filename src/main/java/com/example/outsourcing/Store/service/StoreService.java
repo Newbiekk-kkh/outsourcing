@@ -68,6 +68,8 @@ public class StoreService {
 
     }
 
+
+    @Transactional
     public void updateStore(StoreRequestDto requestDto, Long storeId) {
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);
@@ -75,6 +77,8 @@ public class StoreService {
         store.update(requestDto);
     }
 
+
+    @Transactional
     public void deleteStore(StoreDeleteDto storeDeleteDto, Long storeId, Long memberId) {
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);

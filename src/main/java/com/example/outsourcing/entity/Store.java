@@ -39,7 +39,7 @@ public class Store extends BaseEntity {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "store")
     private List<Menu> menus = new ArrayList<>();
 
 
