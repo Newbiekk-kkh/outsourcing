@@ -1,6 +1,5 @@
-package com.example.outsourcing.menu.dto;
+package com.example.outsourcing.dto;
 
-import com.example.outsourcing.entity.Menu;
 import lombok.Getter;
 
 @Getter

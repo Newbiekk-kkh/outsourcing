@@ -1,4 +1,4 @@
-package com.example.outsourcing.menu.dto;
+package com.example.outsourcing.dto;
 
 import com.example.outsourcing.entity.Menu;
 import lombok.Builder;
@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class DeleteMenuResponseDto {
+public class CreateMenuResponseDto {
     private String menuName;
 
-    public static DeleteMenuResponseDto deleteMenuResponse(Menu menu) {
-        return DeleteMenuResponseDto.builder()
+    public static CreateMenuResponseDto createMenuResponse(Menu menu) {
+        return CreateMenuResponseDto.builder()
                 .menuName(menu.getName())
                 .build();
     }
