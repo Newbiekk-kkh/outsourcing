@@ -2,6 +2,7 @@ package com.example.outsourcing.entity;
 
 import com.example.outsourcing.eunm.OrdersStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,5 +39,13 @@ public class Orders extends BaseEntity {
 
     public Orders(OrdersStatus status) {
         this.status = status;
+    }
+
+    @Builder
+    public Orders(OrdersStatus status, Member member, Store store, Menu menu) {
+        this.status = status;
+        this.member = member;
+        this.store = store;
+        this.menu = menu;
     }
 }

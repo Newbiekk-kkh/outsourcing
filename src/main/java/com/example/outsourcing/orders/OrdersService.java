@@ -42,10 +42,12 @@ public class OrdersService {
             throw new OrdersException(OrdersErrorCode.NOT_BUSINESS_HOURS);
         }
 
-        Orders orders = new Orders(ORDERED);
-        orders.setMember(member);
-        orders.setStore(store);
-        orders.setMenu(menu);
+        Orders orders = Orders.builder()
+                .status(ORDERED)
+                .member(member)
+                .store(store)
+                .menu(menu)
+                .build();
 
         ordersRepository.save(orders);
 

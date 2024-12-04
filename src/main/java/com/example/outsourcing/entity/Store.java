@@ -22,11 +22,9 @@ public class Store {
     private StoreStatus status;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
     private LocalTime openTime;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
     private LocalTime closeTime;
 
     @ManyToOne
