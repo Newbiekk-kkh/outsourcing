@@ -1,5 +1,6 @@
 package com.example.outsourcing.orders;
 
+import com.example.outsourcing.exception.OrdersException;
 import com.example.outsourcing.orders.dto.OrdersRequestDto;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
 import com.example.outsourcing.orders.dto.UpdateOrdersRequestDto;
@@ -24,7 +25,7 @@ public class OrdersController {
      * @return ordersResponseDto, 201 성공시 CREATED, 실패시 상황에 맞는 에러코드
      */
     @PostMapping
-    public ResponseEntity<OrdersResponseDto> createOrders(@PathVariable Long storeId, @RequestBody OrdersRequestDto dto) {
+    public ResponseEntity<OrdersResponseDto> createOrders(@PathVariable Long storeId, @RequestBody OrdersRequestDto dto) throws OrdersException {
         OrdersResponseDto ordersResponseDto = ordersService.createOrders(storeId, dto.getMenuId());
         return new ResponseEntity<>(ordersResponseDto , HttpStatus.CREATED);
     }

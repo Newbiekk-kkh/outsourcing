@@ -4,7 +4,7 @@ import com.example.outsourcing.eunm.StoreStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Getter
 @Entity
@@ -23,11 +23,11 @@ public class Store {
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIME)
-    private Time openTime;
+    private LocalTime openTime;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIME)
-    private Time closeTime;
+    private LocalTime closeTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)

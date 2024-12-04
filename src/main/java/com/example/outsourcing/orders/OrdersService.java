@@ -5,11 +5,15 @@ import com.example.outsourcing.entity.Menu;
 import com.example.outsourcing.entity.Orders;
 import com.example.outsourcing.entity.Store;
 import com.example.outsourcing.eunm.OrdersStatus;
+import com.example.outsourcing.exception.OrdersErrorCode;
+import com.example.outsourcing.exception.OrdersException;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
+import java.time.LocalTime;
 import java.util.List;
 
 import static com.example.outsourcing.eunm.OrdersStatus.ORDERED;
@@ -21,11 +25,22 @@ public class OrdersService {
 
     // 주문 생성 로직
     @Transactional
-    public OrdersResponseDto createOrders(Long storeId, Long menuId) {
+    public OrdersResponseDto createOrders(Long storeId, Long menuId) throws OrdersException {
         // 로그인한 고객을 주문한 사람으로 설정, 현재 기능별 개발중으로 다른 주요 기능들이 개발되지 않아 임시객체로 사용
         Member member = new Member();
         Store store = new Store();
         Menu menu = new Menu();
+
+        // 최소 주문 금액 미달시 예외처리
+        if (store.getPrice() > menu.getPrice()) {
+           throw new OrdersException(OrdersErrorCode.FAIL_TO_MEET_MIN_PRICE);
+        }
+
+        // 가게 영업 시간이 아닐시 예외처리
+        LocalTime currentTime = LocalTime.now();
+        if (currentTime.isBefore(store.getOpenTime()) || currentTime.isAfter(store.getCloseTime())) {
+            throw new OrdersException(OrdersErrorCode.NOT_BUSINESS_HOURS);
+        }
 
         Orders orders = new Orders(ORDERED);
         orders.setMember(member);
