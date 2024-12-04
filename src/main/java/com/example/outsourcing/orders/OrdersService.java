@@ -19,6 +19,7 @@ import static com.example.outsourcing.eunm.OrdersStatus.ORDERED;
 public class OrdersService {
     private final OrdersRepository ordersRepository;
 
+    // 주문 생성 로직
     @Transactional
     public OrdersResponseDto createOrders(Long storeId, Long menuId) {
         // 로그인한 고객을 주문한 사람으로 설정, 현재 기능별 개발중으로 다른 주요 기능들이 개발되지 않아 임시객체로 사용
@@ -36,6 +37,7 @@ public class OrdersService {
         return OrdersResponseDto.toDto(orders);
     }
 
+    // 특정 가게에 등록된 전체 주문 조회 로직
     public List<OrdersResponseDto> findAllOrders(Long storeId) {
         // 로그인한 유저가 가게의 Owner 일때만 조회 가능, 로그인한 유저로 가게 오너인지 확인하는 코드 필요
 
@@ -43,6 +45,7 @@ public class OrdersService {
         return allOrders.stream().map(OrdersResponseDto::toDto).toList();
     }
 
+    // 특정 가게에 등록된 단일 주문 조회 로직
     public OrdersResponseDto findOrders(Long storeId, Long ordersId) {
         // 로그인한 유저가 고객이거나 Owner 일때만 조회가능, 로그인한 유저가 가게 오너이거나 주문한 고객인지 확인하는 코드 필요
 
@@ -50,6 +53,7 @@ public class OrdersService {
         return OrdersResponseDto.toDto(findOrders);
     }
 
+    // 특정 가게에 등록된 주문상태 변경 로직
     @Transactional
     public OrdersResponseDto updateOrdersStatus(Long storeId, Long ordersId, OrdersStatus status) {
         // 로그인한 유저가 Owner 일때만 변경 가능, 로그인한 유저가 가게오너인지 확인하는 코드 필요
