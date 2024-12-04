@@ -1,38 +1,45 @@
 package com.example.outsourcing.entity;
 
-import com.example.outsourcing.eunm.MemberAccess;
-import com.example.outsourcing.eunm.MemberStatus;
-import jakarta.persistence.*;
+import com.example.outsourcing.common.BaseEntity;
+import com.example.outsourcing.common.UserStatus;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Getter
+
 @Entity
-@Table(name = "member")
-public class Member {
+@Getter
+@RequiredArgsConstructor
+@AllArgsConstructor
+public class Member extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private MemberAccess access;
+    private String userAccess;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private MemberStatus status;
+    private String userStatus;
 
-    public Member() {
-    }
-
-    public Member(String email, String password, MemberAccess access) {
+    public Member(String email, String password, String userAccess, String userStatus) {
         this.email = email;
         this.password = password;
-        this.access = access;
+        this.userAccess = userAccess;
+        this.userStatus = userStatus;
     }
+
+    public void updatestatus(UserStatus status) {
+        this.userStatus = status.getUserStatus();
+    }
+
+
 }
