@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,9 @@ public class Member extends BaseEntity {
     private String userStatus;
 
 
+
     @OneToMany(mappedBy = "member")
     List<Store> stores = new ArrayList<>();
-
 
     public Member(String email, String password, String userAccess, String userStatus) {
         this.email = email;
