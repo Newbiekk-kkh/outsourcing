@@ -1,4 +1,4 @@
-package com.example.outsourcing.orders;
+package com.example.outsourcing.sesstionUtils;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

@@ -1,42 +1,40 @@
 package com.example.outsourcing.entity;
 
-import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalTime;
-
 @Getter
 @Entity
-@Table(name = "store")
-public class Store {
+@Table(name = "menu")
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
     private long price;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private StoreStatus status;
-
-    @Column(nullable = false)
-    private LocalTime openTime;
-
-    @Column(nullable = false)
-    private LocalTime closeTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    public Store() {
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
+
+    public Menu() {
     }
 
-    public Store(long price, StoreStatus status) {
+    public Menu(String name, String description, long price) {
+        this.name = name;
+        this.description = description;
         this.price = price;
-        this.status = status;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.outsourcing.orders;
+package com.example.outsourcing.orders.repository;
 
 import com.example.outsourcing.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;

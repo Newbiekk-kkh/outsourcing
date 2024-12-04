@@ -1,14 +1,16 @@
-package com.example.outsourcing.orders;
+package com.example.outsourcing.orders.service;
 
-import com.example.outsourcing.entity.Member;
+import com.example.outsourcing.member.entity.Member;
 import com.example.outsourcing.entity.Menu;
 import com.example.outsourcing.entity.Orders;
 import com.example.outsourcing.entity.Store;
 import com.example.outsourcing.eunm.OrdersStatus;
 import com.example.outsourcing.exception.OrdersErrorCode;
 import com.example.outsourcing.exception.OrdersException;
+import com.example.outsourcing.sesstionUtils.SessionUtils;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
-import com.example.outsourcing.repository.MemberRepository;
+import com.example.outsourcing.member.repository.MemberRepository;
+import com.example.outsourcing.orders.repository.OrdersRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static com.example.outsourcing.eunm.OrdersStatus.ORDERED;
-import static com.example.outsourcing.eunm.OrdersStatus.REJECTED;
 
 @Service
 @RequiredArgsConstructor

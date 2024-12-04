@@ -1,6 +1,8 @@
 package com.example.outsourcing.entity;
 
+import com.example.outsourcing.common.BaseEntity;
 import com.example.outsourcing.eunm.OrdersStatus;
+import com.example.outsourcing.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
