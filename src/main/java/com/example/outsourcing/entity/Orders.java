@@ -4,7 +4,6 @@ import com.example.outsourcing.eunm.OrdersStatus;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -14,23 +13,22 @@ public class Orders extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrdersStatus status;
 
-    @Setter
-    @ManyToOne
+    @Column(nullable = true)
+    private String rejectReason;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
@@ -47,5 +45,10 @@ public class Orders extends BaseEntity {
         this.member = member;
         this.store = store;
         this.menu = menu;
+    }
+
+    public void updateStatus(OrdersStatus status, String rejectReason) {
+        this.status = status;
+        this.rejectReason = rejectReason;
     }
 }

@@ -56,7 +56,7 @@ public class OrdersController {
     /**
      * 특정 주문의 주문 상태 업데이트
      * @param storeId 주문이 등록된 가게 Id
-     * @param ordersId 수정할 주문 id
+     * @param ordersId 수정할 주문 Id
      * @param dto UpdateOrdersRequestDto 주문의 상태 변경을 담은 Dto
      * @return updatedOrdersResponseDto, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
@@ -64,8 +64,8 @@ public class OrdersController {
     public ResponseEntity<OrdersResponseDto> updateOrdersStatus(
             @PathVariable Long storeId,
             @PathVariable Long ordersId,
-            @RequestBody UpdateOrdersRequestDto dto) {
-        OrdersResponseDto updatedOrdersResponseDto = ordersService.updateOrdersStatus(storeId, ordersId, dto.getStatus());
+            @RequestBody UpdateOrdersRequestDto dto) throws OrdersException {
+        OrdersResponseDto updatedOrdersResponseDto = ordersService.updateOrdersStatus(storeId, ordersId, dto.getStatus(), dto.getRejectReason());
         return new ResponseEntity<>(updatedOrdersResponseDto, HttpStatus.OK);
     }
 }
