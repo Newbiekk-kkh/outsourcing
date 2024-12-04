@@ -5,7 +5,6 @@ import com.example.outsourcing.common.UserAccess;
 import com.example.outsourcing.common.UserStatus;
 import com.example.outsourcing.config.PasswordEncoder;
 import com.example.outsourcing.dto.DeleteRequestDto;
-import com.example.outsourcing.dto.LoginRequestDto;
 import com.example.outsourcing.dto.MemberRequestDto;
 import com.example.outsourcing.dto.MemberResponseDto;
 import com.example.outsourcing.entity.Member;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

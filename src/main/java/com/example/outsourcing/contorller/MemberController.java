@@ -3,7 +3,6 @@ package com.example.outsourcing.contorller;
 
 import com.example.outsourcing.common.SuccessResponse;
 import com.example.outsourcing.dto.DeleteRequestDto;
-import com.example.outsourcing.dto.LoginRequestDto;
 import com.example.outsourcing.dto.MemberRequestDto;
 import com.example.outsourcing.dto.MemberResponseDto;
 import com.example.outsourcing.service.MemberService;
