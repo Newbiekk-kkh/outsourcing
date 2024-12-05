@@ -12,7 +12,7 @@ public class StoreDetailResponseDto {
     private String name;
     private LocalTime openTime;
     private LocalTime closeTime;
-    private Long defaultPrice;
+    private int defaultPrice;
     private List<Menu> menuList;
 
 

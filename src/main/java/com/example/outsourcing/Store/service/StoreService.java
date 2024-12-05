@@ -37,7 +37,7 @@ public class StoreService {
 
         Store store = storeRepository.save(Store.builder()
                 .name(dto.getName())
-                .openTime(dto.getOpenTIme())
+                .openTime(dto.getOpenTime())
                 .closeTime(dto.getCloseTime())
                 .price(dto.getDefaultPrice())
                 .member(member)
@@ -51,8 +51,15 @@ public class StoreService {
 
 
     public List<StoreResponseDto> findStores(StoreFindRequestDto storeFindRequestDto) {
+        String name = storeFindRequestDto.getName();
+        List<Store> storeList;
 
-        List<Store> storeList = storeRepository.findByNameContaining(storeFindRequestDto.getName());
+        if (name == null || name.trim().isEmpty()) {
+            storeList = storeRepository.findAll();
+        } else {
+            storeList = storeRepository.findByNameContaining(storeFindRequestDto.getName());
+        }
+
 
         return storeList.stream()
                 .map(StoreResponseDto::new)
