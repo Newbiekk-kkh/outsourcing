@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public enum ReviewStar {
-    ONE("*"),
-    TWO("**"),
-    THREE("***"),
-    FOUR("****"),
-    FIVE("*****");
-
-    private final String ReviewStart;
-
-    ReviewStar(String reviewStart) {
-        this.ReviewStart = reviewStart;
-    }
+//    ONE("*"),
+//    TWO("**"),
+//    THREE("***"),
+//    FOUR("****"),
+//    FIVE("*****");
+//
+//    private final String ReviewStart;
+//
+//    ReviewStar(String reviewStart) {
+//        this.ReviewStart = reviewStart;
+//    }
 }

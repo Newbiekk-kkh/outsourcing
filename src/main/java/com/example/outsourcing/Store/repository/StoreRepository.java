@@ -1,7 +1,8 @@
 package com.example.outsourcing.Store.repository;
 
-import com.example.outsourcing.entity.Member;
+import com.example.outsourcing.member.entity.Member;
 import com.example.outsourcing.Store.entity.Store;
+import com.example.outsourcing.orders.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,5 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     }
 
     List<Store> findByNameContaining(String name);
+
 }

@@ -1,5 +1,6 @@
 package com.example.outsourcing.member.dto;
 
+import com.example.outsourcing.common.UserAccess;
 import com.example.outsourcing.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 public class MemberResponseDto {
     private final Long id;
     private final String email;
-    private final String access;
+    private final UserAccess access;
     private final LocalDateTime modifiedAt;
 
     public static MemberResponseDto toDto(Member member) {
@@ -24,6 +25,4 @@ public class MemberResponseDto {
                 .modifiedAt(member.getModifiedAt())
                 .build();
     }
-
-
 }
