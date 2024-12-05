@@ -1,28 +1,43 @@
 package com.example.outsourcing.global.config;
 
+import com.example.outsourcing.domain.member.entity.Member;
+import com.example.outsourcing.domain.member.repository.MemberRepository;
+import com.example.outsourcing.global.enums.UserAccess;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 
 @Slf4j
 @Component
 public class AdminInterceptor implements HandlerInterceptor {
+    private MemberRepository memberRepository;
+
+    public AdminInterceptor(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String memberType = request.getHeader("id"); // 예: 헤더로 Member-Type 전달
+        HttpSession session = request.getSession(false);
 
-        log.info("{} --------------- {}",request, response);
-//        if (memberType == null || !memberType.equals("OWNER")) {
-//            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
-//            response.getWriter().write("Only OWNER can manage stores.");
-//            return false; // 요청 진행 중단
-//        }
-//
+        if (session == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "세션이 끊어졌습니다");
+        }
+
+        Long loggedInUserId = (Long) session.getAttribute("id");
+        Member member = memberRepository.findByIdOrElseThrow(loggedInUserId);
+
+        if (member.getUserAccess() != UserAccess.MANAGER) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "가게 관리에 대한 권한은 사장님에게만 있습니다");
+        }
+
         return true;
     }
 }

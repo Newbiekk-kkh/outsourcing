@@ -31,8 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminInterceptor)
-                .addPathPatterns("/stores/**") // 특정 경로에만 적용
-                .excludePathPatterns("/stores/public/**"); // 제외할 경로
+                .addPathPatterns("/stores/admin", "/stores/admin/**");
     }
 
 }

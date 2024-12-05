@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalTime;
 
-@Slf4j
 @Getter
 public class StoreRequestDto {
 
@@ -25,13 +24,11 @@ public class StoreRequestDto {
     @Builder
     public StoreRequestDto(String name, String openTime, String closeTime, int defaultPrice) {
         this.name = name;
-        log.info("-------------{}---------{}", closeTime, openTime);
         if (isValidTimeFormat(openTime) || isValidTimeFormat(closeTime)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "오픈시간과 마감시간을 형식에 맞게 입력해주세요.");
         }
         this.openTime = LocalTime.parse(openTime);
         this.closeTime = LocalTime.parse(closeTime);
-        log.info("-------------{}---------{}", this.closeTime, this.openTime);
         this.defaultPrice = defaultPrice;
     }
 
