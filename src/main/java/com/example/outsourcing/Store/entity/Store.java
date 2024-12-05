@@ -1,4 +1,4 @@
-package com.example.outsourcing.entity;
+package com.example.outsourcing.Store.entity;
 
 import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.member.entity.Member;

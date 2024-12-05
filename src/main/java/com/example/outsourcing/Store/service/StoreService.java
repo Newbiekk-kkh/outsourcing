@@ -2,7 +2,7 @@ package com.example.outsourcing.Store.service;
 
 import com.example.outsourcing.Store.dto.*;
 import com.example.outsourcing.entity.Member;
-import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.Store.repository.StoreRepository;
 import com.example.outsourcing.repository.MemberRepository;
@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

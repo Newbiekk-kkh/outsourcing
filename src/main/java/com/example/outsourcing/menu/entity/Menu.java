@@ -1,5 +1,6 @@
-package com.example.outsourcing.entity;
+package com.example.outsourcing.menu.entity;
 
+import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;

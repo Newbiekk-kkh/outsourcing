@@ -1,9 +1,8 @@
 package com.example.outsourcing.Store.dto;
 
-import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.Store.entity.Store;
 import lombok.Getter;
 
-import java.sql.Time;
 import java.time.LocalTime;
 
 @Getter

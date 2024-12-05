@@ -1,6 +1,6 @@
 package com.example.outsourcing.orders.dto;
 
-import com.example.outsourcing.entity.Orders;
+import com.example.outsourcing.orders.entity.Orders;
 import com.example.outsourcing.eunm.OrdersStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

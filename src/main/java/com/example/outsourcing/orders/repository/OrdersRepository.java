@@ -1,6 +1,6 @@
 package com.example.outsourcing.orders.repository;
 
-import com.example.outsourcing.entity.Orders;
+import com.example.outsourcing.orders.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;

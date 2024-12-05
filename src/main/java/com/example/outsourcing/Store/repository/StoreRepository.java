@@ -1,8 +1,7 @@
 package com.example.outsourcing.Store.repository;
 
-import com.example.outsourcing.Store.dto.StoreResponseDto;
 import com.example.outsourcing.entity.Member;
-import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.Store.entity.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

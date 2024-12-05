@@ -1,9 +1,9 @@
 package com.example.outsourcing.orders.service;
 
 import com.example.outsourcing.member.entity.Member;
-import com.example.outsourcing.entity.Menu;
-import com.example.outsourcing.entity.Orders;
-import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.menu.entity.Menu;
+import com.example.outsourcing.orders.entity.Orders;
+import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.OrdersStatus;
 import com.example.outsourcing.exception.OrdersErrorCode;
 import com.example.outsourcing.exception.OrdersException;
