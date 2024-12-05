@@ -27,9 +27,9 @@ public class Menu extends BaseEntity {
     @Column(nullable = false)
     private MenuStatus menuStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "member_id", nullable = false)
+//    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)

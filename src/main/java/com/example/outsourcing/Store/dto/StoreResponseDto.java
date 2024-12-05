@@ -11,7 +11,7 @@ public class StoreResponseDto {
     private final String name;
     private final LocalTime openTime;
     private final LocalTime closeTime;
-    private final Long defaultPrice;
+    private final int defaultPrice;
 
 
     public StoreResponseDto(Store store) {

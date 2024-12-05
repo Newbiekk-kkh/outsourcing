@@ -29,4 +29,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(ex.getStatusCode()).body(response);
     }
+
+    @ExceptionHandler(OrdersException.class)
+    public ResponseEntity<Map<String, String>> OrdersExceptionHandler(OrdersException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getErrorCode().getMessage());
+
+        return ResponseEntity
+                .status(e.getErrorCode().getHttpStatus())
+                .body(response);
+    }
 }

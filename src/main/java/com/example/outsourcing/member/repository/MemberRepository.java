@@ -1,6 +1,7 @@
 package com.example.outsourcing.member.repository;
 
 import com.example.outsourcing.member.entity.Member;
+import com.example.outsourcing.orders.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -17,4 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     default Member findByIdOrElseThrow(Long id) {
         return findById(id).orElseThrow(()->new IllegalArgumentException("찾을 수 없는 멤버입니다"));
     }
+
+
 }
