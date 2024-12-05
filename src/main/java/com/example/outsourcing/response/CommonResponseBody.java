@@ -1,10 +1,11 @@
 package com.example.outsourcing.response;
 
 import lombok.Getter;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatusCode;
 
 @Getter
-public class CommonResponseBody<T> {
+public class CommonResponseBody<T> extends HttpEntity<T> {
     private final String message;
     private final T data;
     private final HttpStatusCode statusCode;
