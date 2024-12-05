@@ -16,7 +16,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 
         String memberType = request.getHeader("id"); // 예: 헤더로 Member-Type 전달
 
-        log.info("---------------{}",memberType);
+        log.info("{} --------------- {}",request, response);
 //        if (memberType == null || !memberType.equals("OWNER")) {
 //            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
 //            response.getWriter().write("Only OWNER can manage stores.");

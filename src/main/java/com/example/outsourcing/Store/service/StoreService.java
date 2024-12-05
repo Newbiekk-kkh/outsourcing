@@ -56,6 +56,7 @@ public class StoreService {
         String name = storeFindRequestDto.getName();
         List<Store> storeList;
 
+        // 입력값이 없으면 전체 조회, 있으면 입력값을 포함한 식당만 조회
         if (name == null || name.trim().isEmpty()) {
             storeList = storeRepository.findAll();
         } else {
