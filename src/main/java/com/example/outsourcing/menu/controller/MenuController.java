@@ -1,7 +1,7 @@
-package com.example.outsourcing.contorller;
+package com.example.outsourcing.menu.controller;
 
-import com.example.outsourcing.dto.*;
-import com.example.outsourcing.service.MenuService;
+import com.example.outsourcing.menu.dto.*;
+import com.example.outsourcing.menu.service.MenuService;
 import com.example.outsourcing.response.CommonResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

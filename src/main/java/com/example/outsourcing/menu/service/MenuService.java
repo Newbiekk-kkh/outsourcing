@@ -1,10 +1,10 @@
-package com.example.outsourcing.service;
+package com.example.outsourcing.menu.service;
 
-import com.example.outsourcing.dto.*;
-import com.example.outsourcing.entity.Menu;
+import com.example.outsourcing.menu.entity.Menu;
 import com.example.outsourcing.entity.Store;
 import com.example.outsourcing.eunm.MenuStatus;
-import com.example.outsourcing.repository.MenuRepository;
+import com.example.outsourcing.menu.dto.*;
+import com.example.outsourcing.menu.repository.MenuRepository;
 import com.example.outsourcing.repository.StoreRepository;
 import com.example.outsourcing.response.CommonResponseBody;
 import lombok.RequiredArgsConstructor;

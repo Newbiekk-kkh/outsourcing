@@ -1,6 +1,6 @@
-package com.example.outsourcing.repository;
+package com.example.outsourcing.menu.repository;
 
-import com.example.outsourcing.entity.Menu;
+import com.example.outsourcing.menu.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
