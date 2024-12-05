@@ -31,10 +31,10 @@ public class Store {
     @Column(nullable = false)
     private StoreStatus status;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime openTime;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime closeTime;
 
     @ManyToOne
