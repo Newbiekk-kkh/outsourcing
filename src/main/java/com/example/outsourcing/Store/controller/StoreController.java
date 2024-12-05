@@ -5,7 +5,6 @@ import com.example.outsourcing.response.CommonResponseBody;
 import com.example.outsourcing.Store.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class StoreController {
     @PostMapping
     public CommonResponseBody<StoreResponseDto> createStore (@RequestBody StoreRequestDto requestDto, @SessionAttribute("id") Long memberId) {
 
-        return new CommonResponseBody<>("가게 생성 완료", storeService.save(requestDto, memberId), HttpStatus.CREATED);
+        return new CommonResponseBody<>("가게 생성 완료", storeService.save(requestDto, memberId));
     }
 
 
@@ -29,14 +28,14 @@ public class StoreController {
     @GetMapping
     public CommonResponseBody<List<StoreResponseDto>> findStores (@RequestBody StoreFindRequestDto storeFindRequestDto) {
 
-        return new CommonResponseBody<>("가게 조회 완료", storeService.findStores(storeFindRequestDto), HttpStatus.OK);
+        return new CommonResponseBody<>("가게 조회 완료", storeService.findStores(storeFindRequestDto));
     }
 
 
     @GetMapping("/{storeId}")
     public CommonResponseBody<StoreDetailResponseDto> findStoreDetail (@PathVariable Long storeId) {
 
-        return new CommonResponseBody<>("가게 상세 정보 조회",storeService.findStoreDetail(storeId), HttpStatus.OK);
+        return new CommonResponseBody<>("가게 상세 정보 조회",storeService.findStoreDetail(storeId));
     }
 
 
@@ -46,7 +45,7 @@ public class StoreController {
 
         storeService.updateStore(requestDto, storeId);
 
-        return new CommonResponseBody<>("가게 정보가 수정되었습니다",null, HttpStatus.OK);
+        return new CommonResponseBody<>("가게 정보가 수정되었습니다",null);
     }
 
     @DeleteMapping("/{storeId}")
@@ -54,7 +53,7 @@ public class StoreController {
                                                                    @RequestBody StoreDeleteDto storeDeleteDto,
                                                                    @SessionAttribute("id") Long memberId) {
         storeService.deleteStore(storeDeleteDto, storeId, memberId);
-        return (new CommonResponseBody<>("폐업 처리가 완료 되었습니다", null, HttpStatus.OK));
+        return (new CommonResponseBody<>("폐업 처리가 완료 되었습니다", null));
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.outsourcing.config;
 
 import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.Store.repository.StoreRepository;
+import com.example.outsourcing.common.UserAccess;
+import com.example.outsourcing.common.UserStatus;
 import com.example.outsourcing.member.entity.Member;
 import com.example.outsourcing.member.repository.MemberRepository;
 import com.example.outsourcing.menu.entity.Menu;
@@ -31,8 +33,8 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        Member member1 = new Member("asd@asd.com", passwordEncoder.encode("!QweQwe123"), "사장님", "존재");
-        Member member2 = new Member("qwe@qwe.com", passwordEncoder.encode("!QweQwe123"), "유저", "존재");
+        Member member1 = new Member("asd@asd.com", passwordEncoder.encode("!QweQwe123"), UserAccess.MANAGER, UserStatus.EXISTENCE);
+        Member member2 = new Member("qwe@qwe.com", passwordEncoder.encode("!QweQwe123"), UserAccess.CLIENT, UserStatus.EXISTENCE);
         memberRepository.save(member1);
         memberRepository.save(member2);
 
@@ -40,7 +42,7 @@ public class DataInitializer {
                 .name("김창배")
                 .openTime(LocalTime.of(10,0,0))
                 .closeTime(LocalTime.of(22,0,0))
-                .price(5000L)
+                .price(5000)
                 .member(member1)
                 .build();
 

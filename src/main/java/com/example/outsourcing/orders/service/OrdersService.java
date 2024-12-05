@@ -67,7 +67,7 @@ public class OrdersService {
 
         ordersRepository.save(orders);
 
-        return new CommonResponseBody<>("주문이 등록되었습니다.",OrdersResponseDto.toDto(orders), HttpStatus.CREATED);
+        return new CommonResponseBody<>("주문이 등록되었습니다.",OrdersResponseDto.toDto(orders));
     }
 
     // 특정 가게에 등록된 전체 주문 조회 로직
@@ -81,7 +81,7 @@ public class OrdersService {
         }
 
         List<Orders> allOrders = ordersRepository.findAllByStoreId(storeId);
-        return new CommonResponseBody<>("조회에 성공했습니다.", allOrders.stream().map(OrdersResponseDto::toDto).toList(), HttpStatus.OK);
+        return new CommonResponseBody<>("조회에 성공했습니다.", allOrders.stream().map(OrdersResponseDto::toDto).toList());
     }
 
     // 특정 가게에 등록된 단일 주문 조회 로직
@@ -97,7 +97,7 @@ public class OrdersService {
             throw new IllegalArgumentException("본 가게의 주문이 아니므로 조회할 수 없습니다.");
         }
 
-        return new CommonResponseBody<>("조회에 성공했습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
+        return new CommonResponseBody<>("조회에 성공했습니다.",OrdersResponseDto.toDto(findOrders));
     }
 
     // 특정 가게에 등록된 주문상태 변경 로직
@@ -121,6 +121,6 @@ public class OrdersService {
         findOrders.updateStatus(status, rejectReason);
         ordersRepository.save(findOrders);
 
-        return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
+        return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.",OrdersResponseDto.toDto(findOrders));
     }
 }

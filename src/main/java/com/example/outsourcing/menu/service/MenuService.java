@@ -27,10 +27,11 @@ public class MenuService {
         Store store = storeRepository.findById(storeId).orElseThrow(IllegalArgumentException::new);
         Menu menu = menuRepository.save(dto.toEntity(store));
 
-        return new CommonResponseBody<>("메뉴 추가 완료", CreateMenuResponseDto.createMenuResponse(menu), HttpStatus.CREATED);
+        return new CommonResponseBody<>("메뉴 추가 완료", CreateMenuResponseDto.createMenuResponse(menu));
     }
 
     // 메뉴 조회 : 삭제되지 않은 메뉴들에 한해 조회
+    @Transactional
     public CommonResponseBody<List<GetMenuResponseDto>> findMenu(Long storeId) {
 
         return new CommonResponseBody<>(
@@ -40,8 +41,7 @@ public class MenuService {
                         .stream()
                         .filter(menu -> menu.getMenuStatus().equals(MenuStatus.NORMAL))
                         .map(GetMenuResponseDto::getMenuResponse)
-                        .toList(),
-                HttpStatus.OK);
+                        .toList());
     }
 
     // 메뉴 수정 : 메뉴를 생성한 가게에서만 수정 가능
@@ -55,10 +55,11 @@ public class MenuService {
 
         menu.updateMenu(dto.getMenuName(), dto.getMenuDescription(), dto.getMenuPrice());
 
-        return new CommonResponseBody<>("메뉴 수정 완료", UpdateMenuResponseDto.updateMenuResponse(menu), HttpStatus.OK);
+        return new CommonResponseBody<>("메뉴 수정 완료", UpdateMenuResponseDto.updateMenuResponse(menu));
     }
 
     //메뉴 삭제 : 메뉴 삭제 상태로 전환, 메뉴를 생성한 가게에서만 삭제 가능
+    @Transactional
     public CommonResponseBody<DeleteMenuResponseDto> deleteMenu(Long storeId, Long menuId) {
         Menu menu = menuRepository.findById(menuId).orElseThrow(IllegalArgumentException::new);
 
@@ -68,6 +69,6 @@ public class MenuService {
 
         menu.deleteMenu();
 
-        return new CommonResponseBody<>("메뉴 삭제 완료", DeleteMenuResponseDto.deleteMenuResponse(menu), HttpStatus.OK);
+        return new CommonResponseBody<>("메뉴 삭제 완료", DeleteMenuResponseDto.deleteMenuResponse(menu));
     }
 }
