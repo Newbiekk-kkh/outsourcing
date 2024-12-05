@@ -1,6 +1,6 @@
 package com.example.outsourcing.config;
 
-//import com.example.outsourcing.entity.Member;
+import com.example.outsourcing.entity.Member;
 import com.example.outsourcing.eunm.MemberAccess;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

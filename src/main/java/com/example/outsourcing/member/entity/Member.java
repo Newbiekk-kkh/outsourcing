@@ -1,6 +1,5 @@
 package com.example.outsourcing.member.entity;
 
-import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.common.BaseEntity;
 import com.example.outsourcing.common.UserStatus;
 import jakarta.persistence.*;
