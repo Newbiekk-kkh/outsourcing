@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/store/{storeId}/orders")
+@RequestMapping("/stores/{storeId}/orders")
 public class OrdersController {
     private final OrdersService ordersService;
 
@@ -36,7 +36,7 @@ public class OrdersController {
      * @return allOrdersResponseDtoList, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
     @GetMapping
-    public ResponseEntity<List<OrdersResponseDto>> findAllOrders(@PathVariable Long storeId) {
+    public ResponseEntity<List<OrdersResponseDto>> findAllOrders(@PathVariable Long storeId) throws OrdersException {
         List<OrdersResponseDto> allOrdersResponseDtoList = ordersService.findAllOrders(storeId);
         return new ResponseEntity<>(allOrdersResponseDtoList, HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class OrdersController {
      * @return findOrdersResponseDto, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
     @GetMapping("/{ordersId}")
-    public ResponseEntity<OrdersResponseDto> findOrders(@PathVariable Long storeId, @PathVariable Long ordersId) {
+    public ResponseEntity<OrdersResponseDto> findOrders(@PathVariable Long storeId, @PathVariable Long ordersId) throws OrdersException {
         OrdersResponseDto findOrdersResponseDto = ordersService.findOrders(storeId, ordersId);
         return new ResponseEntity<>(findOrdersResponseDto, HttpStatus.OK);
     }
