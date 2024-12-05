@@ -73,9 +73,9 @@ public class OrdersService {
     // 특정 가게에 등록된 전체 주문 조회 로직
     @Transactional
     public CommonResponseBody<List<OrdersResponseDto>> findAllOrders(Long storeId) throws OrdersException {
-        // 로그인한 유저가 가게의 Owner 일때만 조회 가능, 로그인한 유저로 가게 오너인지 확인하는 코드 필요
         Store findStore = storeRepository.findByIdOrElseThrow(storeId);
 
+        // 로그인한 유저가 가게의 Owner 일때만 조회 가능
         if (!findStore.getMember().getId().equals(sessionUtils.getLoggedInUserId())) {
             throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
         }
@@ -87,14 +87,16 @@ public class OrdersService {
     // 특정 가게에 등록된 단일 주문 조회 로직
     @Transactional
     public CommonResponseBody<OrdersResponseDto> findOrders(Long storeId, Long ordersId) throws OrdersException {
-        // 로그인한 유저가 고객이거나 Owner 일때만 조회가능, 로그인한 유저가 가게 오너이거나 주문한 고객인지 확인하는 코드 필요
         Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
+
+        // 로그인한 유저가 고객이거나 Owner 일때만 조회가능
         if (!findOrders.getMember().getId().equals(sessionUtils.getLoggedInUserId()) && !findOrders.getStore().getMember().getId().equals(sessionUtils.getLoggedInUserId())) {
             throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
         }
 
+        // 해당 가게의 주문이 아닐 때, 예외처리
         if (findOrders.getStore().getId() != storeId) {
-            throw new IllegalArgumentException("본 가게의 주문이 아니므로 조회할 수 없습니다.");
+            throw new OrdersException(OrdersErrorCode.IS_NOT_ORDER_OF_STORE);
         }
 
         return new CommonResponseBody<>("조회에 성공했습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
@@ -103,17 +105,24 @@ public class OrdersService {
     // 특정 가게에 등록된 주문상태 변경 로직
     @Transactional
     public CommonResponseBody<OrdersResponseDto> updateOrdersStatus(Long storeId, Long ordersId, OrdersStatus status, String rejectReason) throws OrdersException {
-        //로그인한 유저가 Owner 일때만 변경 가능, 로그인한 유저가 가게오너인지 확인하는 코드 필요
+        // REJECTED 로 수정할땐 사유를 필수적으로 입력해야함
+        if(status == REJECTED && rejectReason == null) {
+            throw new OrdersException(OrdersErrorCode.REJECT_NEED_REASON);
+        }
+
         Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
 
+        // 로그인한 유저가 Owner 일때만 수정 가능
         if (!findOrders.getStore().getMember().getId().equals(sessionUtils.getLoggedInUserId())) {
             throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
         }
 
+        // 해당 가게의 주문이 아닐 때, 예외처리
         if (findOrders.getStore().getId() != storeId) {
-            throw new IllegalArgumentException("본 가게의 주문이 아니므로 주문 상태를 변경할 수 없습니다.");
+            throw new OrdersException(OrdersErrorCode.IS_NOT_ORDER_OF_STORE);
         }
 
+        // 이미 REJECTED 인 주문은 더이상 수정할 수 없음
         if (findOrders.getStatus() == REJECTED) {
             throw new OrdersException(OrdersErrorCode.ALREADY_REJECTED);
         }

@@ -1,6 +1,5 @@
 package com.example.outsourcing.domain.store.controller;
 
-import com.example.outsourcing.Store.dto.*;
 import com.example.outsourcing.domain.store.dto.*;
 import com.example.outsourcing.global.common.CommonResponseBody;
 import com.example.outsourcing.domain.store.service.StoreService;
