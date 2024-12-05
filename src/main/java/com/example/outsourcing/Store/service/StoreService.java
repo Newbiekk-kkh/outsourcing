@@ -1,11 +1,12 @@
 package com.example.outsourcing.Store.service;
 
 import com.example.outsourcing.Store.dto.*;
+import com.example.outsourcing.member.entity.Member;
 import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.Store.repository.StoreRepository;
-import com.example.outsourcing.member.entity.Member;
 import com.example.outsourcing.member.repository.MemberRepository;
+import com.example.outsourcing.response.CommonResponseBody;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,6 @@ public class StoreService {
                 .member(member)
                 .build()
         );
-
 
         return new StoreResponseDto(store);
 
