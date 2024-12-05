@@ -2,11 +2,16 @@ package com.example.outsourcing.Store.entity;
 
 import com.example.outsourcing.Store.dto.StoreRequestDto;
 import com.example.outsourcing.eunm.StoreStatus;
+import com.example.outsourcing.member.entity.Member;
+import com.example.outsourcing.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.awt.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,15 +31,19 @@ public class Store {
     @Column(nullable = false)
     private StoreStatus status;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalTime openTime;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalTime closeTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+
+    @OneToMany(mappedBy = "store")
+    private List<Menu> menus = new ArrayList<>();
 
     public Store() {
     }
@@ -46,6 +55,7 @@ public class Store {
         this.closeTime = closeTime;
         this.price = price;
         this.status = StoreStatus.NORMAL;
+        this.member = member;
     }
 
 
