@@ -3,7 +3,7 @@ package com.example.outsourcing.Store.entity;
 import com.example.outsourcing.Store.dto.StoreRequestDto;
 import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.member.entity.Member;
-import com.example.outsourcing.menu.Menu;
+import com.example.outsourcing.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
