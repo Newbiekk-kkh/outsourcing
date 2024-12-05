@@ -1,11 +1,11 @@
 package com.example.outsourcing.Store.service;
 
 import com.example.outsourcing.Store.dto.*;
-import com.example.outsourcing.entity.Member;
 import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.StoreStatus;
 import com.example.outsourcing.Store.repository.StoreRepository;
-import com.example.outsourcing.repository.MemberRepository;
+import com.example.outsourcing.member.entity.Member;
+import com.example.outsourcing.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
