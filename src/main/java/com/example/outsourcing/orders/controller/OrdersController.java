@@ -5,6 +5,7 @@ import com.example.outsourcing.orders.service.OrdersService;
 import com.example.outsourcing.orders.dto.OrdersRequestDto;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
 import com.example.outsourcing.orders.dto.UpdateOrdersRequestDto;
+import com.example.outsourcing.response.CommonResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,8 @@ public class OrdersController {
      * @return ordersResponseDto, 201 성공시 CREATED, 실패시 상황에 맞는 에러코드
      */
     @PostMapping
-    public ResponseEntity<OrdersResponseDto> createOrders(@PathVariable Long storeId, @RequestBody OrdersRequestDto dto) throws OrdersException {
-        OrdersResponseDto ordersResponseDto = ordersService.createOrders(storeId, dto.getMenuId());
-        return new ResponseEntity<>(ordersResponseDto , HttpStatus.CREATED);
+    public CommonResponseBody<OrdersResponseDto> createOrders(@PathVariable Long storeId, @RequestBody OrdersRequestDto dto) throws OrdersException {
+        return ordersService.createOrders(storeId, dto.getMenuId());
     }
 
     /**
@@ -36,9 +36,8 @@ public class OrdersController {
      * @return allOrdersResponseDtoList, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
     @GetMapping
-    public ResponseEntity<List<OrdersResponseDto>> findAllOrders(@PathVariable Long storeId) throws OrdersException {
-        List<OrdersResponseDto> allOrdersResponseDtoList = ordersService.findAllOrders(storeId);
-        return new ResponseEntity<>(allOrdersResponseDtoList, HttpStatus.OK);
+    public CommonResponseBody<List<OrdersResponseDto>> findAllOrders(@PathVariable Long storeId) throws OrdersException {
+        return ordersService.findAllOrders(storeId);
     }
 
     /**
@@ -48,9 +47,8 @@ public class OrdersController {
      * @return findOrdersResponseDto, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
     @GetMapping("/{ordersId}")
-    public ResponseEntity<OrdersResponseDto> findOrders(@PathVariable Long storeId, @PathVariable Long ordersId) throws OrdersException {
-        OrdersResponseDto findOrdersResponseDto = ordersService.findOrders(storeId, ordersId);
-        return new ResponseEntity<>(findOrdersResponseDto, HttpStatus.OK);
+    public CommonResponseBody<OrdersResponseDto> findOrders(@PathVariable Long storeId, @PathVariable Long ordersId) throws OrdersException {
+        return ordersService.findOrders(storeId,ordersId);
     }
 
     /**
@@ -61,11 +59,10 @@ public class OrdersController {
      * @return updatedOrdersResponseDto, 성공시 200 OK, 실패시 상황에 맞는 에러코드
      */
     @PatchMapping("/{ordersId}")
-    public ResponseEntity<OrdersResponseDto> updateOrdersStatus(
+    public CommonResponseBody<OrdersResponseDto> updateOrdersStatus(
             @PathVariable Long storeId,
             @PathVariable Long ordersId,
             @RequestBody UpdateOrdersRequestDto dto) throws OrdersException {
-        OrdersResponseDto updatedOrdersResponseDto = ordersService.updateOrdersStatus(storeId, ordersId, dto.getStatus(), dto.getRejectReason());
-        return new ResponseEntity<>(updatedOrdersResponseDto, HttpStatus.OK);
+        return ordersService.updateOrdersStatus(storeId, ordersId, dto.getStatus(), dto.getRejectReason());
     }
 }

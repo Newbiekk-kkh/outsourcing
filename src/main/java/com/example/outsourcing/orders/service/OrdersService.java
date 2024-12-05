@@ -9,12 +9,14 @@ import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.OrdersStatus;
 import com.example.outsourcing.exception.OrdersErrorCode;
 import com.example.outsourcing.exception.OrdersException;
+import com.example.outsourcing.response.CommonResponseBody;
 import com.example.outsourcing.sesstionUtils.SessionUtils;
 import com.example.outsourcing.orders.dto.OrdersResponseDto;
 import com.example.outsourcing.member.repository.MemberRepository;
 import com.example.outsourcing.orders.repository.OrdersRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
@@ -35,7 +37,7 @@ public class OrdersService {
 
     // 주문 생성 로직
     @Transactional
-    public OrdersResponseDto createOrders(Long storeId, Long menuId) throws OrdersException {
+    public CommonResponseBody<OrdersResponseDto> createOrders(Long storeId, Long menuId) throws OrdersException {
         // 로그인한 고객을 주문한 사람으로 설정
         Member loggedInUser = memberRepository.findByIdOrElseThrow(sessionUtils.getLoggedInUserId());
         Menu findMenu = menuRepository.findByIdOrElseThrow(menuId);
@@ -65,25 +67,26 @@ public class OrdersService {
 
         ordersRepository.save(orders);
 
-        return OrdersResponseDto.toDto(orders);
+        return new CommonResponseBody<>("주문이 등록되었습니다.",OrdersResponseDto.toDto(orders), HttpStatus.CREATED);
     }
 
     // 특정 가게에 등록된 전체 주문 조회 로직
     @Transactional
-    public List<OrdersResponseDto> findAllOrders(Long storeId) throws OrdersException {
+    public CommonResponseBody<List<OrdersResponseDto>> findAllOrders(Long storeId) throws OrdersException {
         // 로그인한 유저가 가게의 Owner 일때만 조회 가능, 로그인한 유저로 가게 오너인지 확인하는 코드 필요
         Store findStore = storeRepository.findByIdOrElseThrow(storeId);
+
         if (!findStore.getMember().getId().equals(sessionUtils.getLoggedInUserId())) {
             throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
         }
 
         List<Orders> allOrders = ordersRepository.findAllByStoreId(storeId);
-        return allOrders.stream().map(OrdersResponseDto::toDto).toList();
+        return new CommonResponseBody<>("조회에 성공했습니다.", allOrders.stream().map(OrdersResponseDto::toDto).toList(), HttpStatus.OK);
     }
 
     // 특정 가게에 등록된 단일 주문 조회 로직
     @Transactional
-    public OrdersResponseDto findOrders(Long storeId, Long ordersId) throws OrdersException {
+    public CommonResponseBody<OrdersResponseDto> findOrders(Long storeId, Long ordersId) throws OrdersException {
         // 로그인한 유저가 고객이거나 Owner 일때만 조회가능, 로그인한 유저가 가게 오너이거나 주문한 고객인지 확인하는 코드 필요
         Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
 
@@ -95,12 +98,12 @@ public class OrdersService {
             throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
         }
 
-        return OrdersResponseDto.toDto(findOrders);
+        return new CommonResponseBody<>("조회에 성공했습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
     }
 
     // 특정 가게에 등록된 주문상태 변경 로직
     @Transactional
-    public OrdersResponseDto updateOrdersStatus(Long storeId, Long ordersId, OrdersStatus status, String rejectReason) throws OrdersException {
+    public CommonResponseBody<OrdersResponseDto> updateOrdersStatus(Long storeId, Long ordersId, OrdersStatus status, String rejectReason) throws OrdersException {
         //로그인한 유저가 Owner 일때만 변경 가능, 로그인한 유저가 가게오너인지 확인하는 코드 필요
         Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
 
@@ -117,9 +120,8 @@ public class OrdersService {
         }
 
         findOrders.updateStatus(status, rejectReason);
-
         ordersRepository.save(findOrders);
 
-        return OrdersResponseDto.toDto(findOrders);
+        return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
     }
 }
