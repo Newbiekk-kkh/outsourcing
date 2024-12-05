@@ -1,11 +1,11 @@
 package com.example.outsourcing.menu.service;
 
+import com.example.outsourcing.Store.entity.Store;
+import com.example.outsourcing.Store.repository.StoreRepository;
 import com.example.outsourcing.menu.entity.Menu;
-import com.example.outsourcing.entity.Store;
 import com.example.outsourcing.eunm.MenuStatus;
 import com.example.outsourcing.menu.dto.*;
 import com.example.outsourcing.menu.repository.MenuRepository;
-import com.example.outsourcing.repository.StoreRepository;
 import com.example.outsourcing.response.CommonResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class MenuService {
         return new CommonResponseBody<>(
                 "메뉴 조회 완료",
                 storeRepository.findById(storeId).orElseThrow(IllegalArgumentException::new)
-                        .getMenu()
+                        .getMenus()
                         .stream()
                         .filter(menu -> menu.getMenuStatus().equals(MenuStatus.NORMAL))
                         .map(GetMenuResponseDto::getMenuResponse)

@@ -1,7 +1,7 @@
 package com.example.outsourcing.menu.dto;
 
 import com.example.outsourcing.menu.entity.Menu;
-import com.example.outsourcing.entity.Store;
+import com.example.outsourcing.Store.entity.Store;
 import com.example.outsourcing.eunm.MenuStatus;
 import lombok.Getter;
 

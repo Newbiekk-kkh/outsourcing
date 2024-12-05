@@ -21,7 +21,7 @@ public class MenuController {
         return menuService.createMenu(storeId, dto);
     }
 
-    @GetMapping("/{storeId}")
+    @GetMapping("/{storeId}/menu")
     public CommonResponseBody<List<GetMenuResponseDto>> getMenu(@PathVariable Long storeId) {
         return menuService.findMenu(storeId);
     }
