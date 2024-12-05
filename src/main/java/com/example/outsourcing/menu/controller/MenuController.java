@@ -10,28 +10,28 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/stores")
+@RequestMapping("/stores/{storeId}/menus")
 @RequiredArgsConstructor
 public class MenuController {
 
     private final MenuService menuService;
 
-    @PostMapping("/{storeId}/menu")
+    @PostMapping
     public CommonResponseBody<CreateMenuResponseDto> createMenu(@PathVariable Long storeId, @RequestBody CreateMenuRequestDto dto) {
         return menuService.createMenu(storeId, dto);
     }
 
-    @GetMapping("/{storeId}/menu")
+    @GetMapping
     public CommonResponseBody<List<GetMenuResponseDto>> getMenu(@PathVariable Long storeId) {
         return menuService.findMenu(storeId);
     }
 
-    @PatchMapping("/{storeId}/menu-update/{menuId}")
+    @PatchMapping("/update/{menuId}")
     public CommonResponseBody<UpdateMenuResponseDto> updateMenu(@PathVariable Long storeId, @PathVariable Long menuId, @RequestBody UpdateMenuRequestDto dto) {
         return menuService.updateMenu(storeId, menuId, dto);
     }
 
-    @PatchMapping("/{storeId}/menu-delete/{menuId}")
+    @PatchMapping("/delete/{menuId}")
     public CommonResponseBody<DeleteMenuResponseDto> deleteMenu(@PathVariable Long storeId, @PathVariable Long menuId) {
         return menuService.deleteMenu(storeId, menuId);
     }
