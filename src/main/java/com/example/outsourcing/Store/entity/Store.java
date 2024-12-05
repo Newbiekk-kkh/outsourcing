@@ -25,16 +25,16 @@ public class Store {
     private String name;
 
     @Column(nullable = false)
-    private long price;
+    private int price;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StoreStatus status;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime openTime;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private LocalTime closeTime;
 
     @ManyToOne
@@ -49,7 +49,7 @@ public class Store {
     }
 
     @Builder
-    public Store(String name, LocalTime openTime, LocalTime closeTime, Long price, Member member) {
+    public Store(String name, LocalTime openTime, LocalTime closeTime, int price, Member member) {
         this.name = name;
         this.openTime = openTime;
         this.closeTime = closeTime;
@@ -61,14 +61,14 @@ public class Store {
 
 
 
-    public Store(long price, StoreStatus status) {
+    public Store(int price, StoreStatus status) {
         this.price = price;
         this.status = status;
     }
 
     public void update(StoreRequestDto requestDto) {
         this.name = requestDto.getName();
-        this.openTime = requestDto.getOpenTIme();
+        this.openTime = requestDto.getOpenTime();
         this.closeTime = requestDto.getCloseTime();
         this.price = requestDto.getDefaultPrice();
     }

@@ -9,7 +9,9 @@ import com.example.outsourcing.member.repository.MemberRepository;
 import com.example.outsourcing.response.CommonResponseBody;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,12 +34,12 @@ public class StoreService {
                 .count();
 
         if (activeStoreCount >= 3) {
-            throw new IllegalStateException("영업중인 가게는 최대 3개까지 가질 수 있습니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "영업중인 가게는 최대 3개까지 가질 수 있습니다.");
         }
 
         Store store = storeRepository.save(Store.builder()
                 .name(dto.getName())
-                .openTime(dto.getOpenTIme())
+                .openTime(dto.getOpenTime())
                 .closeTime(dto.getCloseTime())
                 .price(dto.getDefaultPrice())
                 .member(member)
@@ -51,8 +53,15 @@ public class StoreService {
 
 
     public List<StoreResponseDto> findStores(StoreFindRequestDto storeFindRequestDto) {
+        String name = storeFindRequestDto.getName();
+        List<Store> storeList;
 
-        List<Store> storeList = storeRepository.findByNameContaining(storeFindRequestDto.getName());
+        if (name == null || name.trim().isEmpty()) {
+            storeList = storeRepository.findAll();
+        } else {
+            storeList = storeRepository.findByNameContaining(storeFindRequestDto.getName());
+        }
+
 
         return storeList.stream()
                 .map(StoreResponseDto::new)
@@ -86,7 +95,7 @@ public class StoreService {
         if (Objects.equals(member.getEmail(), storeDeleteDto.getEmail())) {
             store.delete();
         } else {
-            throw new IllegalStateException("이메일이 일치하지 않습니다");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일이 일치하지 않습니다.");
         }
 
     }
