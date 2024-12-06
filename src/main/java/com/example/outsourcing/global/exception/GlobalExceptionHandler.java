@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatusCode()).body(response);
     }
 
-    @ExceptionHandler(OrdersException.class)
-    public ResponseEntity<Map<String, String>> OrdersExceptionHandler(OrdersException e) {
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<Map<String, String>> OrderExceptionHandler(OrderException e) {
 
         Map<String, String> response = new HashMap<>();
         response.put("message", e.getErrorCode().getMessage());

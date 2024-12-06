@@ -1,13 +1,13 @@
-package com.example.outsourcing.domain.orders.dto;
+package com.example.outsourcing.domain.order.dto;
 
 import lombok.Getter;
 
 @Getter
-public class OrdersCountByMemberDto {
+public class OrderCountByMemberDto {
     private Long memberId;
     private Long count;
 
-    public OrdersCountByMemberDto(Long memberId, Long count) {
+    public OrderCountByMemberDto(Long memberId, Long count) {
         this.memberId = memberId;
         this.count = count;
     }

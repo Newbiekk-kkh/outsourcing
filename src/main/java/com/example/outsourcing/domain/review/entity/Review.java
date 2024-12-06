@@ -3,7 +3,7 @@ package com.example.outsourcing.domain.review.entity;
 import com.example.outsourcing.domain.store.entity.Store;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.global.common.BaseEntity;
-import com.example.outsourcing.domain.orders.entity.Orders;
+import com.example.outsourcing.domain.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +31,7 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Orders order;
+    private Order order;
 
     private int star;
 

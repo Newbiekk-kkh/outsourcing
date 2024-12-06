@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class OrdersException extends Exception {
-    private final OrdersErrorCode errorCode;
+public class OrderException extends Exception {
+    private final OrderErrorCode errorCode;
 }
