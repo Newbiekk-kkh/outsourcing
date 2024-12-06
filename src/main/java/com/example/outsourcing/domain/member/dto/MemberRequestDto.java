@@ -16,7 +16,6 @@ public class MemberRequestDto {
     private String email;
     @NotBlank
     private String password;
-    @NotBlank
     private String access;
 
     public void setPassword(String password) {
