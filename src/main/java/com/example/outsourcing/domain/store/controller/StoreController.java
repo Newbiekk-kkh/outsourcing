@@ -16,6 +16,7 @@ public class StoreController {
 
     private final StoreService storeService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/admin")
     public CommonResponseBody<StoreResponseDto> createStore (@RequestBody StoreRequestDto requestDto, @SessionAttribute("id") Long memberId) {
 
@@ -32,14 +33,14 @@ public class StoreController {
     }
 
 
-    @GetMapping("/admin/{storeId}")
+    @GetMapping("/{storeId}")
     public CommonResponseBody<StoreDetailResponseDto> findStoreDetail (@PathVariable Long storeId) {
 
         return new CommonResponseBody<>("가게 상세 정보 조회",storeService.findStoreDetail(storeId), HttpStatus.OK);
     }
 
 
-    @PatchMapping("/{storeId}")
+    @PatchMapping("/admin/{storeId}")
     public CommonResponseBody<String> updateStore (@PathVariable Long storeId,
                                                    @RequestBody StoreRequestDto requestDto,
                                                    @SessionAttribute("id") Long memberId) {

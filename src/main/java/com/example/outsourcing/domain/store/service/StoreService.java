@@ -1,5 +1,6 @@
 package com.example.outsourcing.domain.store.service;
 
+import com.example.outsourcing.domain.menu.dto.GetMenuResponseDto;
 import com.example.outsourcing.domain.store.dto.*;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.domain.store.entity.Store;
@@ -70,11 +71,16 @@ public class StoreService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public StoreDetailResponseDto findStoreDetail(Long storeId) {
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);
+        List<GetMenuResponseDto> menuResponseDto = store.getMenus().stream()
+                .map(GetMenuResponseDto::getMenuResponse)
+                .collect(Collectors.toList());
 
-        return new StoreDetailResponseDto(store);
+
+        return StoreDetailResponseDto.of(store, menuResponseDto);
 
     }
 
