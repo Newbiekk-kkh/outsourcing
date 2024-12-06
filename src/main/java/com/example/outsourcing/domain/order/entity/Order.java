@@ -1,9 +1,9 @@
-package com.example.outsourcing.domain.orders.entity;
+package com.example.outsourcing.domain.order.entity;
 
 import com.example.outsourcing.global.common.BaseEntity;
 import com.example.outsourcing.domain.menu.entity.Menu;
 import com.example.outsourcing.domain.store.entity.Store;
-import com.example.outsourcing.global.enums.OrdersStatus;
+import com.example.outsourcing.global.enums.OrderStatus;
 import com.example.outsourcing.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,14 +12,14 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "orders")
-public class Orders extends BaseEntity {
+public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrdersStatus status;
+    private OrderStatus status;
 
     @Column(nullable = true)
     private String rejectReason;
@@ -36,22 +36,22 @@ public class Orders extends BaseEntity {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(OrdersStatus status) {
+    public Order(OrderStatus status) {
         this.status = status;
     }
 
     @Builder
-    public Orders(OrdersStatus status, Member member, Store store, Menu menu) {
+    public Order(OrderStatus status, Member member, Store store, Menu menu) {
         this.status = status;
         this.member = member;
         this.store = store;
         this.menu = menu;
     }
 
-    public void updateStatus(OrdersStatus status, String rejectReason) {
+    public void updateStatus(OrderStatus status, String rejectReason) {
         this.status = status;
         this.rejectReason = rejectReason;
     }

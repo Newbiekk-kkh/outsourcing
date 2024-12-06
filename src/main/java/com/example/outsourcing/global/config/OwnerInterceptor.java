@@ -15,10 +15,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
 @Component
-public class AdminInterceptor implements HandlerInterceptor {
+public class OwnerInterceptor implements HandlerInterceptor {
     private MemberRepository memberRepository;
 
-    public AdminInterceptor(MemberRepository memberRepository) {
+    public OwnerInterceptor(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -34,8 +34,8 @@ public class AdminInterceptor implements HandlerInterceptor {
         Long loggedInUserId = (Long) session.getAttribute("id");
         Member member = memberRepository.findByIdOrElseThrow(loggedInUserId);
 
-        if (member.getUserAccess() != UserAccess.ADMIN) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "관리자만 접근할 수 있습니다");
+        if (member.getUserAccess() != UserAccess.MANAGER) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "가게 관리에 대한 권한은 사장님에게만 있습니다");
         }
 
         return true;
