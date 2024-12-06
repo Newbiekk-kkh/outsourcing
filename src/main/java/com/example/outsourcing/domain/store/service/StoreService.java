@@ -1,5 +1,6 @@
 package com.example.outsourcing.domain.store.service;
 
+import com.example.outsourcing.domain.menu.dto.GetMenuResponseDto;
 import com.example.outsourcing.domain.store.dto.*;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.domain.store.entity.Store;
@@ -14,6 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
@@ -68,20 +71,29 @@ public class StoreService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public StoreDetailResponseDto findStoreDetail(Long storeId) {
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);
+        List<GetMenuResponseDto> menuResponseDto = store.getMenus().stream()
+                .map(GetMenuResponseDto::getMenuResponse)
+                .collect(Collectors.toList());
 
-        return new StoreDetailResponseDto(store);
+
+        return StoreDetailResponseDto.of(store, menuResponseDto);
 
     }
 
 
     @Transactional
-    public void updateStore(StoreRequestDto requestDto, Long storeId) {
+    public void updateStore(StoreRequestDto requestDto, Long storeId, Long memberId) {
+        Member member = memberRepository.findByIdOrElseThrow(memberId);
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);
 
+        if (store.getMember() != member) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "가게를 생성한 멤버에게만 권한이 있습니다");
+        }
         store.update(requestDto);
     }
 
@@ -91,6 +103,17 @@ public class StoreService {
 
         Store store = storeRepository.findByIdOrElseThrow(storeId);
         Member member = memberRepository.findByIdOrElseThrow(memberId);
+
+        if (store.getMember() != member) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "가게를 생성한 멤버에게만 권한이 있습니다");
+        }
+
+        Pattern validPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        Matcher validPassMatcher = validPattern.matcher(storeDeleteDto.getEmail());
+
+        if (!validPassMatcher.find()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일 형식이 아닙니다.");
+        }
 
         if (Objects.equals(member.getEmail(), storeDeleteDto.getEmail())) {
             store.delete();

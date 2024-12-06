@@ -11,9 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    private final OwnerInterceptor ownerInterceptor;
     private final AdminInterceptor adminInterceptor;
 
-    public WebConfig(AdminInterceptor adminInterceptor) {
+    public WebConfig(OwnerInterceptor ownerInterceptor, AdminInterceptor adminInterceptor) {
+        this.ownerInterceptor = ownerInterceptor;
         this.adminInterceptor = adminInterceptor;
     }
 
@@ -30,9 +32,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(ownerInterceptor)
+                .addPathPatterns("/stores/owner", "/stores/owner/*");
+
         registry.addInterceptor(adminInterceptor)
-                .addPathPatterns("/stores/**") // 특정 경로에만 적용
-                .excludePathPatterns("/stores/public/**"); // 제외할 경로
+                .addPathPatterns("/admin/*");
     }
+
+
+
 
 }
