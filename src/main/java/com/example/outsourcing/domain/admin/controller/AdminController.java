@@ -19,6 +19,6 @@ public class AdminController {
     @GetMapping
     public CommonResponseBody<AdminStatsResponseDto> getDailyStats() {
 
-        return new CommonResponseBody<>("통계 조회 완료", adminService.getDailyStats(), HttpStatus.OK);
+        return new CommonResponseBody<>("통계 조회 완료", adminService.getDailyStats());
     }
 }

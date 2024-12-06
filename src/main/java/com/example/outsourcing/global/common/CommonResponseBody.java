@@ -7,16 +7,10 @@ import org.springframework.http.HttpStatusCode;
 public class CommonResponseBody<T> {
     private final String message;
     private final T data;
-    private final HttpStatusCode statusCode;
-
-    public CommonResponseBody(String message, T data, HttpStatusCode statusCode) {
-        this.message = message;
-        this.data = data;
-        this.statusCode = statusCode;
-    }
 
     public CommonResponseBody(String message, T data) {
-        this(message, data, null);
+        this.message = message;
+        this.data = data;
     }
 
     public CommonResponseBody(String message) {

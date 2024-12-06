@@ -68,7 +68,7 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        return new CommonResponseBody<>("주문이 등록되었습니다.", OrderResponseDto.toDto(order), HttpStatus.CREATED);
+        return new CommonResponseBody<>("주문이 등록되었습니다.", OrderResponseDto.toDto(order));
     }
 
     // 특정 가게에 등록된 전체 주문 조회 로직
@@ -82,7 +82,7 @@ public class OrderService {
         }
 
         List<Order> allOrders = orderRepository.findAllByStoreId(storeId);
-        return new CommonResponseBody<>("조회에 성공했습니다.", allOrders.stream().map(OrderResponseDto::toDto).toList(), HttpStatus.OK);
+        return new CommonResponseBody<>("조회에 성공했습니다.", allOrders.stream().map(OrderResponseDto::toDto).toList());
     }
 
     // 특정 가게에 등록된 단일 주문 조회 로직
@@ -100,7 +100,7 @@ public class OrderService {
             throw new OrderException(OrderErrorCode.IS_NOT_ORDER_OF_STORE);
         }
 
-        return new CommonResponseBody<>("조회에 성공했습니다.", OrderResponseDto.toDto(findOrder), HttpStatus.OK);
+        return new CommonResponseBody<>("조회에 성공했습니다.", OrderResponseDto.toDto(findOrder));
     }
 
     // 특정 가게에 등록된 주문상태 변경 로직
@@ -131,7 +131,7 @@ public class OrderService {
         findOrder.updateStatus(status, rejectReason);
         orderRepository.save(findOrder);
 
-        return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.", OrderResponseDto.toDto(findOrder), HttpStatus.OK);
+        return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.", OrderResponseDto.toDto(findOrder));
     }
 
     @Transactional
@@ -149,6 +149,6 @@ public class OrderService {
         }
 
         OrderCountByMemberDto ordersCountByMemberDto = orderRepository.countOrdersByMember(findOrder.getMember().getId());
-        return new CommonResponseBody<>("조회에 성공했습니다.", ordersCountByMemberDto, HttpStatus.OK);
+        return new CommonResponseBody<>("조회에 성공했습니다.", ordersCountByMemberDto);
     }
 }
