@@ -1,7 +1,10 @@
 package com.example.outsourcing.global.config;
 
+import com.example.outsourcing.domain.orders.entity.Orders;
+import com.example.outsourcing.domain.orders.repository.OrdersRepository;
 import com.example.outsourcing.domain.store.entity.Store;
 import com.example.outsourcing.domain.store.repository.StoreRepository;
+import com.example.outsourcing.global.enums.OrdersStatus;
 import com.example.outsourcing.global.enums.UserAccess;
 import com.example.outsourcing.global.enums.UserStatus;
 import com.example.outsourcing.domain.member.entity.Member;
@@ -30,6 +33,8 @@ public class DataInitializer {
     private MenuRepository menuRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private OrdersRepository ordersRepository;
 
     @PostConstruct
     public void init() {
@@ -51,5 +56,10 @@ public class DataInitializer {
         Menu menu = new Menu("볶음밥", "맛있다", 8000, NORMAL, store);
 
         menuRepository.save(menu);
+
+        Orders orders = new Orders(OrdersStatus.DELIVERED, member2, store, menu);
+
+        ordersRepository.save(orders);
+
     }
 }

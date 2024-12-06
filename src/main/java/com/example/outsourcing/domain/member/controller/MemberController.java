@@ -8,6 +8,7 @@ import com.example.outsourcing.domain.member.service.MemberService;
 import com.example.outsourcing.global.common.CommonResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/register")
-    public CommonResponseBody<MemberResponseDto> createUser(@RequestBody MemberRequestDto requestDto){
+    public CommonResponseBody<MemberResponseDto> createUser(@Valid @RequestBody MemberRequestDto requestDto){
         return memberService.createUser(requestDto);
     }
 
     @PostMapping("/login")
-    public CommonResponseBody<?> login(@RequestBody MemberRequestDto requestDto, HttpServletRequest request){
+    public CommonResponseBody<?> login(@Valid @RequestBody MemberRequestDto requestDto, HttpServletRequest request){
         HttpSession existingSession =request.getSession(false);
         if(existingSession != null && existingSession.getAttribute("id") != null) {
             log.info("이미 로그인된 세션이 존재합니다: User ID {}", existingSession.getAttribute("id"));
@@ -62,7 +63,7 @@ public class MemberController {
     }
 
     @PatchMapping
-    public CommonResponseBody<?> deleteUser(@RequestBody DeleteRequestDto requestDto, HttpSession session) {
+    public CommonResponseBody<?> deleteUser(@Valid @RequestBody DeleteRequestDto requestDto, HttpSession session) {
         Long loggedInUserId = (Long) session.getAttribute(requestDto.getId().toString());
         return memberService.deleteUser(requestDto);
     }

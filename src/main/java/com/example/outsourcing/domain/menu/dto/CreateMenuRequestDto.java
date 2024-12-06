@@ -16,7 +16,7 @@ public class CreateMenuRequestDto {
                 this.menuName
                 ,this.menuDescription
                 ,this.menuPrice
-                , MenuStatus.NORMAL
+                ,MenuStatus.NORMAL
                 ,store);
     }
 }

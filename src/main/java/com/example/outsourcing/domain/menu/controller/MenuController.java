@@ -37,4 +37,15 @@ public class MenuController {
     public CommonResponseBody<DeleteMenuResponseDto> deleteMenu(@RequestParam Long storeId, @PathVariable Long menuId) {
         return menuService.deleteMenu(storeId, menuId);
     }
+
+    @PostMapping("/{menuId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CommonResponseBody<CreateMenuOptionResponseDto> createMenuOption(@RequestParam Long storeId, @PathVariable Long menuId, @RequestBody CreateMenuOptionRequestDto dto) {
+        return menuService.createMenuOption(storeId, menuId, dto);
+    }
+
+    @DeleteMapping("/{menuId}/{menuOptionId}")
+    public CommonResponseBody<DeleteMenuOptionResponseDto> deleteMenuOption(@RequestParam Long storeId, @PathVariable Long menuId, @PathVariable Long menuOptionId) {
+        return menuService.deleteMenuOption(storeId, menuId, menuOptionId);
+    }
 }

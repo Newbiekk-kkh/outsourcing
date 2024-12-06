@@ -6,6 +6,9 @@ import com.example.outsourcing.global.enums.MenuStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "menu")
@@ -26,13 +29,12 @@ public class Menu extends BaseEntity {
     @Column(nullable = false)
     private MenuStatus menuStatus;
 
-//    @ManyToOne
-//    @JoinColumn(name = "member_id", nullable = false)
-//    private Member member;
-
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    private List<MenuOption> menuOptions = new ArrayList<>();
 
     public Menu() {
     }
