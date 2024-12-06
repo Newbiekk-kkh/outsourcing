@@ -134,6 +134,7 @@ public class OrderService {
         return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.", OrderResponseDto.toDto(findOrder));
     }
 
+    // 특정 가게에 주문을 한 고객의 그 가게에 주문한 횟수 보기
     @Transactional
     public CommonResponseBody<OrderCountByMemberDto> countOrdersByMember(Long storeId, Long ordersId) throws OrderException {
         Order findOrder = orderRepository.findByIdOrElseThrow(ordersId);

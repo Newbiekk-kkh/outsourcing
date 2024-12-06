@@ -59,7 +59,7 @@ public class OrderController {
      * @return 성공시 200 OK, 실패시 상황에 맞는 에러코드
      * @throws OrderException
      */
-    @GetMapping("/{orderId}/members")
+    @GetMapping("/{orderId}/order-counts")
     public CommonResponseBody<OrderCountByMemberDto> countOrdersByMember(@PathVariable Long storeId, @PathVariable Long orderId) throws OrderException {
         return orderService.countOrdersByMember(storeId, orderId);
     }

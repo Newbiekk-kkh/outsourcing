@@ -44,7 +44,7 @@ public class DataInitializer {
         memberRepository.save(member2);
 
         Store store = Store.builder()
-                .name("김창배")
+                .name("김밥천국")
                 .openTime(LocalTime.of(10,0,0))
                 .closeTime(LocalTime.of(22,0,0))
                 .price(5000)
