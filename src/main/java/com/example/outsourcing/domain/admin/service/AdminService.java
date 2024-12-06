@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AdminService {
-    private final OrderRepository orderRepository;
+    private final OrderRepository ordersRepository;
 
     public AdminStatsResponseDto getDailyStats() {
-//        List<Orders> ordersList= orderRepository.findByStatus(OrdersStatus.DELIVERED);
+//        List<Orders> ordersList= ordersRepository.findByStatus(OrdersStatus.DELIVERED);
 
 
         return new AdminStatsResponseDto();
