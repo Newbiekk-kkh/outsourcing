@@ -1,7 +1,6 @@
 package com.example.outsourcing.domain.menu.controller;
 
 import com.example.outsourcing.domain.menu.dto.*;
-import com.example.outsourcing.menu.dto.*;
 import com.example.outsourcing.domain.menu.service.MenuService;
 import com.example.outsourcing.global.common.CommonResponseBody;
 import lombok.RequiredArgsConstructor;
