@@ -15,10 +15,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
 @Component
-public class AdminInterceptor implements HandlerInterceptor {
+public class OwnerInterceptor implements HandlerInterceptor {
     private MemberRepository memberRepository;
 
-    public AdminInterceptor(MemberRepository memberRepository) {
+    public OwnerInterceptor(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 

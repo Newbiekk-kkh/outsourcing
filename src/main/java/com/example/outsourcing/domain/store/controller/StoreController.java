@@ -40,7 +40,7 @@ public class StoreController {
     }
 
 
-    @PatchMapping("/admin/{storeId}")
+    @PatchMapping("/owner/{storeId}")
     public CommonResponseBody<String> updateStore (@PathVariable Long storeId,
                                                    @RequestBody StoreRequestDto requestDto,
                                                    @SessionAttribute("id") Long memberId) {
@@ -50,7 +50,7 @@ public class StoreController {
         return new CommonResponseBody<>("가게 정보가 수정되었습니다",null, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/{storeId}")
+    @DeleteMapping("/owner/{storeId}")
     public CommonResponseBody<String> deleteStore (@PathVariable Long storeId,
                                                                    @RequestBody StoreDeleteDto storeDeleteDto,
                                                                    @SessionAttribute("id") Long memberId) {
