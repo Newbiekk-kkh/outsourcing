@@ -1,6 +1,6 @@
 package com.example.outsourcing.domain.store.entity;
 
-import com.example.outsourcing.domain.orders.entity.Orders;
+import com.example.outsourcing.domain.order.entity.Order;
 import com.example.outsourcing.domain.store.dto.StoreRequestDto;
 import com.example.outsourcing.global.enums.StoreStatus;
 import com.example.outsourcing.domain.member.entity.Member;
@@ -47,7 +47,7 @@ public class Store {
 
 
     @OneToMany(mappedBy = "store")
-    private List<Orders> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     public Store() {
     }
