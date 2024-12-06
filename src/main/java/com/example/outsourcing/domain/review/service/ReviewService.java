@@ -3,11 +3,11 @@ package com.example.outsourcing.domain.review.service;
 import com.example.outsourcing.domain.review.dto.FindByStarDto;
 import com.example.outsourcing.domain.store.entity.Store;
 import com.example.outsourcing.domain.store.repository.StoreRepository;
-import com.example.outsourcing.global.enums.OrdersStatus;
+import com.example.outsourcing.global.enums.OrderStatus;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.domain.member.repository.MemberRepository;
-import com.example.outsourcing.domain.orders.entity.Orders;
-import com.example.outsourcing.domain.orders.repository.OrdersRepository;
+import com.example.outsourcing.domain.order.entity.Order;
+import com.example.outsourcing.domain.order.repository.OrderRepository;
 import com.example.outsourcing.global.common.CommonResponseBody;
 import com.example.outsourcing.domain.review.dto.ReviewRequestDto;
 import com.example.outsourcing.domain.review.dto.ReviewResponseDto;
@@ -28,18 +28,18 @@ public class ReviewService {
 
 
     private final ReviewRepository reviewRepository;
-    private final OrdersRepository ordersRepository;
+    private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
     public CommonResponseBody<ReviewResponseDto> createReview(Long orderId, ReviewRequestDto requestDto, Long loggedInUserId) {
-        Orders orders = ordersRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("주문건을 찾을 수 없습니다."));
-        if(!orders.getStatus().equals(OrdersStatus.DELIVERED)) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("주문건을 찾을 수 없습니다."));
+        if(!order.getStatus().equals(OrderStatus.DELIVERED)) {
             return new CommonResponseBody<>("배달이 완료되지 않았습니다", null);
         }
         Member member = memberRepository.findById(loggedInUserId).orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 유저아이디 입니다."));
-        Store store = orders.getStore();
-        Review review = reviewRepository.save(requestDto.toEntity(member, store, orders));
+        Store store = order.getStore();
+        Review review = reviewRepository.save(requestDto.toEntity(member, store, order));
 
         return new CommonResponseBody<>("리뷰가 생성되었습니다.", ReviewResponseDto.toDto(review));
     }
@@ -64,7 +64,7 @@ public class ReviewService {
     //
     public Member validate(Long storeId, Long loggedInUserId){
         Store store = storeRepository.findById(storeId).orElseThrow(() -> new IllegalArgumentException("가게를 찾을 수 없습니다."));
-        Orders orders = ordersRepository.findByStoreId(storeId).orElseThrow(() -> new IllegalArgumentException("주문건을 찾을 수 없습니다."));
+        Order order = orderRepository.findByStoreId(storeId).orElseThrow(() -> new IllegalArgumentException("주문건을 찾을 수 없습니다."));
         Member member = memberRepository.findById(loggedInUserId).orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 유저아이디 입니다."));
         return member;
     }

@@ -1,10 +1,10 @@
 package com.example.outsourcing.global.config;
 
-import com.example.outsourcing.domain.orders.entity.Orders;
-import com.example.outsourcing.domain.orders.repository.OrdersRepository;
+import com.example.outsourcing.domain.order.entity.Order;
+import com.example.outsourcing.domain.order.repository.OrderRepository;
 import com.example.outsourcing.domain.store.entity.Store;
 import com.example.outsourcing.domain.store.repository.StoreRepository;
-import com.example.outsourcing.global.enums.OrdersStatus;
+import com.example.outsourcing.global.enums.OrderStatus;
 import com.example.outsourcing.global.enums.UserAccess;
 import com.example.outsourcing.global.enums.UserStatus;
 import com.example.outsourcing.domain.member.entity.Member;
@@ -34,7 +34,7 @@ public class DataInitializer {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private OrdersRepository ordersRepository;
+    private OrderRepository orderRepository;
 
     @PostConstruct
     public void init() {
@@ -57,9 +57,9 @@ public class DataInitializer {
 
         menuRepository.save(menu);
 
-        Orders orders = new Orders(OrdersStatus.DELIVERED, member2, store, menu);
+        Order orders = new Order(OrderStatus.DELIVERED, member2, store, menu);
 
-        ordersRepository.save(orders);
+        orderRepository.save(orders);
 
     }
 }
