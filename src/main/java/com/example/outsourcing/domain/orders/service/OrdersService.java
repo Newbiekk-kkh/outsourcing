@@ -1,5 +1,6 @@
 package com.example.outsourcing.domain.orders.service;
 
+import com.example.outsourcing.domain.orders.dto.OrdersCountByMemberDto;
 import com.example.outsourcing.domain.store.repository.StoreRepository;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.domain.menu.entity.Menu;
@@ -44,7 +45,7 @@ public class OrdersService {
 
         // 주문을 할 가게와 메뉴Id로 찾은 메뉴에 등록된 가게가 다를 경우
         if (findMenu.getStore().getId() != storeId) {
-            throw new IllegalArgumentException("본 가게의 메뉴가 아닙니다.");
+            throw new OrdersException(OrdersErrorCode.IS_NOT_MENU_OF_STORE);
         }
 
         // 최소 주문 금액 미달시 예외처리
@@ -131,5 +132,23 @@ public class OrdersService {
         ordersRepository.save(findOrders);
 
         return new CommonResponseBody<>("정상적으로 상태가 변경되었습니다.",OrdersResponseDto.toDto(findOrders), HttpStatus.OK);
+    }
+
+    @Transactional
+    public CommonResponseBody<OrdersCountByMemberDto> countOrdersByMember(Long storeId, Long ordersId) throws OrdersException {
+        Orders findOrders = ordersRepository.findByIdOrElseThrow(ordersId);
+
+        // 해당 가게의 주문이 아닐 때, 예외처리
+        if (findOrders.getStore().getId() != storeId) {
+            throw new OrdersException(OrdersErrorCode.IS_NOT_ORDER_OF_STORE);
+        }
+
+        // 로그인한 유저가 Owner 일때만 조회 가능
+        if (!findOrders.getStore().getMember().getId().equals(sessionUtils.getLoggedInUserId())) {
+            throw new OrdersException(OrdersErrorCode.NOT_ALLOWED_ACCESS);
+        }
+
+        OrdersCountByMemberDto ordersCountByMemberDto = ordersRepository.countOrdersByMember(findOrders.getMember().getId());
+        return new CommonResponseBody<>("조회에 성공했습니다.", ordersCountByMemberDto, HttpStatus.OK);
     }
 }
