@@ -1,8 +1,8 @@
-package com.example.outsourcing.menu.controller;
+package com.example.outsourcing.domain.menu.controller;
 
-import com.example.outsourcing.menu.dto.*;
-import com.example.outsourcing.menu.service.MenuService;
-import com.example.outsourcing.response.CommonResponseBody;
+import com.example.outsourcing.domain.menu.dto.*;
+import com.example.outsourcing.domain.menu.service.MenuService;
+import com.example.outsourcing.global.common.CommonResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +28,12 @@ public class MenuController {
         return menuService.findMenu(storeId);
     }
 
-    @PatchMapping("/update/{menuId}")
+    @PatchMapping("/{menuId}")
     public CommonResponseBody<UpdateMenuResponseDto> updateMenu(@RequestParam Long storeId, @PathVariable Long menuId, @RequestBody UpdateMenuRequestDto dto) {
         return menuService.updateMenu(storeId, menuId, dto);
     }
 
-    @PatchMapping("/delete/{menuId}")
+    @DeleteMapping("/{menuId}")
     public CommonResponseBody<DeleteMenuResponseDto> deleteMenu(@RequestParam Long storeId, @PathVariable Long menuId) {
         return menuService.deleteMenu(storeId, menuId);
     }
