@@ -49,6 +49,9 @@ https://documenter.getpostman.com/view/39378739/2sAYBa9Uom
 ## 🥵 Trouble Shooting & 🚀 Refactoring
 - Member 
   - 정규 표현식으로 이메일이나 비밀번호를 검사할때 가져온 표현식 중 모든 특수문자가 포함이 아니여서 특수문자 일부를 추가했다.
+- Store
+  - 가게를 생성, 관리, 삭제하는 데 있어 사장님의 권한이 필요해 권한에 대한 검증 로직이 반복됐고 이를 해결하기 위해 Interceptor를 사용해 권한에 대한 검증을 한 후에  Controller로 넘어갈 수 있도록 했다
+
 - Order
   - 주문 거절이 아닐때 response에 주문 거절 사유가 response 되는 것을 막기 위해 @JsonInclude(JsonInclude.Include.NON_NULL) 를 사용함.
 ---

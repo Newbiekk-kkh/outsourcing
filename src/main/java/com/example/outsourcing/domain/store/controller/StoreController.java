@@ -17,7 +17,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/admin")
+    @PostMapping("/owner")
     public CommonResponseBody<StoreResponseDto> createStore (@RequestBody StoreRequestDto requestDto, @SessionAttribute("id") Long memberId) {
 
         return new CommonResponseBody<>("가게 생성 완료", storeService.save(requestDto, memberId));

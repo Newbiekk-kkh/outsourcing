@@ -1,6 +1,7 @@
 package com.example.outsourcing.domain.order.repository;
 
 import com.example.outsourcing.domain.order.entity.Order;
+import com.example.outsourcing.global.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.outsourcing.domain.order.dto.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +36,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     default Order findByIdOrElseThrow(Long ordersId) {
         return findById(ordersId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "주문을 찾을 수 없습니다."));
     }
+
+
+    @Query("SELECT COUNT(o), SUM(m.price) " +
+            "FROM Order o " +
+            "JOIN o.menu m " +
+            "WHERE o.status = :status AND o.createdAt = :createdAt")
+    Object[] findOrderStatsByDateWithoutQuantity(@Param("status") OrderStatus status,
+                                                 @Param("createdAt") LocalDate createdAt);
+
 }
