@@ -8,12 +8,10 @@ import lombok.Getter;
 public class FindByStarDto {
 
     @Min(1)
-    @Max(4)
+    @Max(5)
     private int minStar;
 
-    @Min(2)
+    @Min(1)
     @Max(5)
     private int maxStar;
-
-
 }

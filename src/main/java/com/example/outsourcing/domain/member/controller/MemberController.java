@@ -69,6 +69,6 @@ public class MemberController {
     @DeleteMapping
     public CommonResponseBody<?> deleteUser(@Valid @RequestBody DeleteRequestDto requestDto, HttpSession session) {
         Long loggedInUserId = (Long) session.getAttribute(requestDto.getId().toString());
-        return memberService.deleteUser(requestDto);
+        return memberService.deleteUser(requestDto, session);
     }
 }
