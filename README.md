@@ -57,7 +57,10 @@ https://documenter.getpostman.com/view/39378739/2sAYBa9Uom
   - Response에 성공 메시지를 반환하기 위해 ResponseBody를 커스텀하고 @ResponseStatus 어노테이션으로 상태코드를 설정하였다.
 
 - Order
-  - 주문 거절이 아닐때 response에 주문 거절 사유가 response 되는 것을 막기 위해 @JsonInclude(JsonInclude.Include.NON_NULL) 를 사용함.
+  - 주문 거절이 아닐때 response에 주문 거절 사유가 response 되는 것을 막기 위해 @JsonInclude(JsonInclude.Include.NON_NULL) 를 사용하였다.
+  
+- Review
+  - 생성 일자를 기준 또는 별점 벙위에 따라 조회하는 기능을 구현하는 것에 있어서 Repository에서 쿼리문을 작성하여 조회 할 수 있도록 구현하였다.
 ---
 ## 😭 아쉬운점
 - 패키지 구조를 정확히 정하지 않아 패키지 구조 변경하는 작업이 여러번 이루어졌다. 
