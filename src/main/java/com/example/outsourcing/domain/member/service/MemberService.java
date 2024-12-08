@@ -9,6 +9,7 @@ import com.example.outsourcing.domain.member.dto.MemberResponseDto;
 import com.example.outsourcing.domain.member.entity.Member;
 import com.example.outsourcing.domain.member.repository.MemberRepository;
 import com.example.outsourcing.global.common.CommonResponseBody;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -84,7 +85,7 @@ public class MemberService {
 
     //회원 탈퇴
     @Transactional
-    public CommonResponseBody<?> deleteUser(DeleteRequestDto dto) {
+    public CommonResponseBody<?> deleteUser(DeleteRequestDto dto, HttpSession session) {
         Member member = memberRepository.findById(dto.getId()).orElseThrow();
 
         //비밀번호 일치 검사
@@ -94,7 +95,7 @@ public class MemberService {
         } else {
             return new CommonResponseBody<>("비밀번호가 틀립니다.", "");
         }
-
+        session.invalidate();
         return new CommonResponseBody<>("회원 탈퇴가 완료되었습니다.", "");
     }
 

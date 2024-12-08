@@ -18,7 +18,7 @@
 ## 👨‍💻 API명세서
 ![api](https://github.com/user-attachments/assets/9335bbfd-af22-4b38-a61e-2bb8d0166dc5)
 
-<a-href>https://documenter.getpostman.com/view/39378739/2sAYBUCXcc</a-hrefhttps://nbcamp2024.slack.com/archives/C083CP3LS8K/p1733289247289799
+https://documenter.getpostman.com/view/39378739/2sAYBa9Uom
 
 ---
 ## 👨‍💻 About Project
