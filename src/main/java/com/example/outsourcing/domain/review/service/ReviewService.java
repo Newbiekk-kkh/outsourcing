@@ -24,9 +24,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    //삭제된 memberId 가져오는거 예외 처리
-
-
     private final ReviewRepository reviewRepository;
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;

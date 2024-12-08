@@ -21,11 +21,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 회원 가입
     @PostMapping("/register")
     public CommonResponseBody<MemberResponseDto> createUser(@Valid @RequestBody MemberRequestDto requestDto){
         return memberService.createUser(requestDto);
     }
 
+    //로그인
     @PostMapping("/login")
     public CommonResponseBody<?> login(@Valid @RequestBody MemberRequestDto requestDto, HttpServletRequest request){
         HttpSession existingSession =request.getSession(false);
@@ -49,6 +51,7 @@ public class MemberController {
         }
     }
 
+    // 로그아웃
     @PostMapping("/logout")
     public CommonResponseBody<?> logout(HttpServletRequest request) {
         HttpSession session =request.getSession(false);
@@ -62,7 +65,8 @@ public class MemberController {
         }
     }
 
-    @PatchMapping
+    //회원 탈퇴
+    @DeleteMapping
     public CommonResponseBody<?> deleteUser(@Valid @RequestBody DeleteRequestDto requestDto, HttpSession session) {
         Long loggedInUserId = (Long) session.getAttribute(requestDto.getId().toString());
         return memberService.deleteUser(requestDto);

@@ -20,12 +20,14 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
+    //리뷰 작성
     @PostMapping
     public CommonResponseBody<ReviewResponseDto> createReview(@RequestParam Long orderId, @RequestBody ReviewRequestDto requestDto, HttpSession session) {
         Long loggedInUserId = (Long) session.getAttribute("id");
         return reviewService.createReview(orderId, requestDto, loggedInUserId);
     }
 
+    //리뷰 조회
     @GetMapping
     public CommonResponseBody<Page<ReviewResponseDto>> findReview(
             @RequestParam Long storeId,
@@ -37,6 +39,7 @@ public class ReviewController {
         return new CommonResponseBody<>("가게에 대한 리뷰입니다.", reviewResponse);
     }
 
+    //
     @GetMapping("/star")
     public CommonResponseBody<Page<ReviewResponseDto>> findStarReview(
             @RequestParam Long storeId,

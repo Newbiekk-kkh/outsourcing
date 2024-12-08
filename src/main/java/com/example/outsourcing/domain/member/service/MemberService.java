@@ -53,6 +53,7 @@ public class MemberService {
         Member member = null;
 
 
+        //유저 권한에 따른 유저 생성
         if (requestDto.getAccess().equals("유저")) {
             member = new Member(requestDto.getEmail(), requestDto.getPassword(), UserAccess.CLIENT, UserStatus.EXISTENCE);
         }
@@ -69,6 +70,7 @@ public class MemberService {
     }
 
     //로그인
+    @Transactional
     public Long authenticateAndGetId(String email, String password) {
         // 이메일로 사용자를 조회
         Member member = getByMemberByEmail(email);
@@ -80,9 +82,12 @@ public class MemberService {
         }
     }
 
+    //회원 탈퇴
+    @Transactional
     public CommonResponseBody<?> deleteUser(DeleteRequestDto dto) {
         Member member = memberRepository.findById(dto.getId()).orElseThrow();
 
+        //비밀번호 일치 검사
         if (passwordEncoder.matches(dto.getPassword(), member.getPassword())) {
             member.delete(UserStatus.SECESSION);
             memberRepository.save(member);
